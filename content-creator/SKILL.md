@@ -9,8 +9,26 @@ description: This skill transforms raw ideas into ready-to-post social media con
 
 This skill transforms ideas into polished, ready-to-post content by:
 1. Validating the idea against content pillars and business objectives
-2. Matching with the best content framework
-3. Writing in Pablo's authentic voice and style
+2. **Selecting a powerful hook** (critical for engagement)
+3. Matching with the best content framework
+4. Writing in Pablo's authentic voice and style
+
+## Performance Guidelines (basado en data real)
+
+**Lo que funciona:**
+- Posts largos (500+ palabras) con profundidad
+- Hook provocador en las primeras 2 líneas
+- Honestidad brutal sin hype
+- Contradicción de narrativas comunes
+- Pitches implícitos (no venta directa)
+- Horario óptimo: 11pm - 1am
+
+**Lo que NO funciona:**
+- Posts cortos (~50 palabras) sin contexto
+- Anuncios directos o venta disfrazada
+- Herramientas/noticias sin ángulo personal
+- Historias con foto/video sin hook
+- Citas de terceros sin reframe propio
 
 ## Workflows
 
@@ -62,7 +80,33 @@ When the user shares an idea, observation, or concept:
 - Note any specific angle, story, or context provided
 - Determine if it's a personal anecdote, contrarian take, universal truth, or practical observation
 
-### Step 3: Match with the Best Framework
+### Step 3: Select the Hook
+
+Read `references/hooks-framework.md` and select the most powerful hook type for this idea.
+
+**Los 5 tipos de hooks que funcionan:**
+
+| Hook | Cuándo usarlo | Ejemplo |
+|------|---------------|---------|
+| **Paradoja/Contradicción** | Verdad que parece contradecirse | "Mi vida es aburrida. Y por eso funciona." |
+| **Pregunta Provocadora** | Escenario hipotético o futuro | "¿Qué harías si pudieras...?" |
+| **Role Play/Storytelling** | Proyectar al lector en un rol | "Imagina que eres el CEO..." |
+| **Consejo Invertido** | Contradecir narrativa dominante | "No busques que la IA escriba como tú." |
+| **Confesión Vulnerable** | Admitir algo que otros no dirían | "Le dije la verdad: yo tampoco lo tengo claro." |
+
+**Selector rápido:**
+
+| Si tu idea es sobre... | Usa este hook |
+|------------------------|---------------|
+| Algo que haces diferente a todos | Consejo Invertido |
+| Una experiencia personal reciente | Confesión Vulnerable |
+| Tecnología o herramienta nueva | Pregunta Provocadora |
+| Un servicio que ofreces | Role Play / Storytelling |
+| Una verdad incómoda | Paradoja / Contradicción |
+
+**IMPORTANTE:** El hook debe estar en las primeras 2 líneas. Sin hook fuerte, no hay lectura.
+
+### Step 4: Match with the Best Content Framework
 
 Read `references/frameworks-aaron-benitez.md` to select the framework with the highest potential match. Consider these triggers:
 
@@ -86,7 +130,7 @@ Read `references/frameworks-aaron-benitez.md` to select the framework with the h
 | Poetic/rhythmic delivery | #17 Formato de Verso |
 | Removing vs adding approach | #18 Inversión del Enfoque |
 
-### Step 4: Write Following Pablo's Style
+### Step 5: Write Following Pablo's Style
 
 Read `references/estilo-escritura-pablo.md` and apply these patterns:
 
@@ -114,7 +158,7 @@ Read `references/estilo-escritura-pablo.md` and apply these patterns:
 - Tension → Resolution arc
 - Contundent closing (not generic)
 
-### Step 4.5: Apply Threads Format (if applicable)
+### Step 5.5: Apply Threads Format (if applicable)
 
 When the user indicates the post is for **Threads** (e.g., "hazlo para Threads", "formato Threads", "thread corto", "conviértelo en thread"):
 
@@ -141,7 +185,7 @@ Read `references/frameworks-threads.md` and:
    - Post único corto, O
    - Hilo numerado (1/x, 2/x, etc.)
 
-### Step 5: Generate Image Concept
+### Step 6: Generate Image Concept
 
 Posts with images perform better. Generate a description for an AI-generated image where Pablo appears as a movie/TV character or iconic scene that represents the post's content.
 
@@ -156,20 +200,35 @@ Posts with images perform better. Generate a description for an AI-generated ima
 - Post about sales/confidence → "Pablo as DiCaprio in Wolf of Wall Street, pointing at the camera mid-speech, but wearing a casual hoodie instead of a suit"
 - Post about AI philosophy → "Pablo as Morpheus offering the red and blue pill, but the pills are labeled 'Tools' and 'Skills'"
 
-### Step 6: Apply Authenticity Checklist
+### Step 7: Apply Performance & Authenticity Checklist
 
 Before presenting the final content, verify:
-- Does it sound conversational?
-- Is there at least one intentional imperfection?
-- Is list symmetry avoided?
-- Is the closing contundent, not generic?
-- Is punctuation varied?
-- Is there clear tension or contrast?
-- Is there an image concept that matches the post?
+
+**Hook Check:**
+- [ ] ¿El hook genera tensión o curiosidad en las primeras 2 líneas?
+- [ ] ¿Obliga al lector a seguir leyendo para "resolver" algo?
+- [ ] ¿Evita ser anuncio directo o venta disfrazada?
+
+**Performance Check:**
+- [ ] ¿Es suficientemente largo (500+ palabras) para tener profundidad?
+- [ ] ¿Contradice alguna narrativa común o expectativa?
+- [ ] ¿Tiene un ángulo personal, no genérico?
+- [ ] ¿Incluye pitch implícito (si aplica) en lugar de venta directa?
+
+**Authenticity Check:**
+- [ ] ¿Suena conversacional?
+- [ ] ¿Hay al menos una imperfección intencional?
+- [ ] ¿Se evita la simetría perfecta en listas?
+- [ ] ¿El cierre es contundente, no genérico?
+- [ ] ¿La puntuación es variada?
+- [ ] ¿Hay tensión o contraste claro?
+- [ ] ¿Hay un concepto de imagen que conecte con el post?
 
 ## Example Transformation
 
 **User idea:** "La gente piensa que tener más herramientas de IA es mejor, pero en realidad los abruma y no usan ninguna bien"
+
+**Hook seleccionado:** Paradoja/Contradicción (se ve productivo → pero no lo es)
 
 **Framework match:** #3 Contraste Apariencia vs Realidad (Desmitificación)
 
@@ -256,6 +315,7 @@ Consultar `references/diario-frameworks.md` para estructuras completas y ejemplo
 
 ### references/
 
+- `hooks-framework.md` — **5 tipos de hooks virales** con estructuras, ejemplos reales y selector rápido (basado en Top 5 posts)
 - `pilares-contenido.md` — 10 content pillars, golden rule, and Wave X Labs business alignment
 - `frameworks-aaron-benitez.md` — 18 content frameworks with structures, examples, and replication guides
 - `estilo-escritura-pablo.md` — Pablo's writing style patterns: punctuation, rhythm, vocabulary, and anti-patterns to avoid

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cueva</title>
+<style>
+  @font-face { font-family: IT; src: url(inter-tight-latin-800-normal.woff2); font-weight: 800; }
+  @font-face { font-family: IT; src: url(inter-tight-latin-600-normal.woff2); font-weight: 600; }
+  html, body { margin: 0; background: #0b0a12; }
+  #stage { position: relative; width: 1080px; height: 880px; overflow: hidden; background: #0b0a12; }
+  #px { position: absolute; inset: 0; width: 1080px; height: 880px; image-rendering: pixelated; }
+  .chip { position: absolute; font-family: IT; font-weight: 800; color: #f4f2ff; }
+  #count { left: 48px; top: 44px; font-size: 46px; padding: 14px 26px; border-radius: 16px;
+           background: #0b0a12d9; border: 2px solid #f4f2ff22; display: flex; gap: 18px; align-items: center; }
+  #count .x { width: 34px; height: 34px; border-radius: 8px; background: #f4f2ff18; display: grid; place-items: center;
+              font-size: 30px; color: #0b0a12; transition: none; }
+  #count .x.on { background: #ff5a6e; }
+  #count .x.ok { background: #8a6bff; }
+  #tag { right: 44px; top: 52px; font-size: 22px; font-weight: 600; color: #f4f2ffb0;
+         padding: 8px 16px; border-radius: 10px; background: #0b0a12b0; }
+  #msg { left: 50%; top: 700px; transform: translateX(-50%); font-size: 54px; padding: 14px 30px; border-radius: 16px;
+         background: #0b0a12e6; white-space: nowrap; opacity: 0; }
+  #msg b { color: #8a6bff; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="px" width="270" height="220"></canvas>
+  <div id="count" class="chip"><span id="clabel">Intento</span><span class="x" id="x1"></span><span class="x" id="x2"></span><span class="x" id="x3"></span></div>
+  <div id="msg" class="chip"></div>
+  <div id="tag" class="chip">Recreación animada · no es el juego real</div>
+</div>
+<script type="importmap">{ "imports": { "three": "./node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import * as THREE from 'three';
+
+const MODE = new URLSearchParams(location.search).get('mode') || 'fail';   // fail | win
+const DUR = Number(new URLSearchParams(location.search).get('dur') || (MODE === 'fail' ? 9 : 4.5));
+const LW = 270, LH = 220;
+
+/* ---------- palette (quantized at the end): cave earth + brand night ---------- */
+const PAL = ['#0b0a12','#15131f','#221c33','#2f2540','#3e3050','#4a3a3a','#5e4836','#7a5c3e','#9a7a50','#c09a62',
+             '#e2c084','#2a1470','#5b3fc4','#8a6bff','#b9a6ff','#f4f2ff','#ff5a6e','#ffb35c','#ffe7a3','#3b2a22','#6d4b8f'];
+const PRGB = PAL.map(h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]);
+const QLUT = new Uint8Array(32*32*32);
+for (let r=0;r<32;r++) for (let g=0;g<32;g++) for (let b=0;b<32;b++) {
+  let best=0, bd=1e9; const R=r*8+4, G=g*8+4, B=b*8+4;
+  for (let i=0;i<PRGB.length;i++){ const p=PRGB[i]; const d=(p[0]-R)**2*0.3+(p[1]-G)**2*0.59+(p[2]-B)**2*0.11; if(d<bd){bd=d;best=i;} }
+  QLUT[(r<<10)|(g<<5)|b]=best;
+}
+
+/* ---------- procedural pixel textures ---------- */
+function rng(s){ return () => (s = (s*16807) % 2147483647) / 2147483647; }
+function tex(draw, n=16){ const c=document.createElement('canvas'); c.width=c.height=n; draw(c.getContext('2d'), n);
+  const t=new THREE.CanvasTexture(c); t.magFilter=t.minFilter=THREE.NearestFilter; t.colorSpace=THREE.SRGBColorSpace; return t; }
+const rockTex = (base, spots, seed) => tex((g,n)=>{ const r=rng(seed); g.fillStyle=base; g.fillRect(0,0,n,n);
+  for(let i=0;i<26;i++){ g.fillStyle=spots[(r()*spots.length)|0]; g.fillRect((r()*n)|0,(r()*n)|0,1+((r()*2)|0),1); } });
+const floorT = rockTex('#7a5c3e',['#6a4f36','#8c6a47','#5e4836'], 7);
+const ledgeT = rockTex('#9a7a50',['#8a6c46','#b08a5a','#7a5c3e'], 11);
+const sideT  = tex((g,n)=>{ g.fillStyle='#5e4836'; g.fillRect(0,0,n,n); g.fillStyle='#4a3a2a'; for(let y=3;y<n;y+=5) g.fillRect(0,y,n,1);
+  g.fillStyle='#7a5c3e'; g.fillRect(0,0,n,2); });
+const wallT  = rockTex('#3e3050',['#2f2540','#4a3a5a','#221c33'], 19);
+
+/* ---------- scene ---------- */
+const renderer = new THREE.WebGLRenderer({ antialias:false, preserveDrawingBuffer:true });
+renderer.setSize(LW, LH, false); renderer.setPixelRatio(1);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const scene = new THREE.Scene(); scene.background = new THREE.Color('#0b0a12');
+scene.fog = new THREE.Fog('#0b0a12', 18, 30);
+const cam = new THREE.PerspectiveCamera(38, LW/LH, 0.1, 100);
+scene.add(new THREE.HemisphereLight('#b9a6ff', '#3b2a22', 0.55));
+const sun = new THREE.DirectionalLight('#ffe7a3', 1.1); sun.position.set(-4, 12, 6); scene.add(sun);
+const lamp = new THREE.PointLight('#ffb35c', 3.5, 5, 1.8); scene.add(lamp);
+const exitLight = new THREE.PointLight('#b9a6ff', 0, 6, 1.4); exitLight.position.set(12, 3.2, 0.6); scene.add(exitLight);
+
+const box = (w,h,d,mats,x,y,z) => { const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mats); m.position.set(x,y,z); scene.add(m); return m; };
+const lam = (t)=> new THREE.MeshLambertMaterial({ map:t });
+// tiled floor/ledge: one box per tile so the pixel texture stays 1 tile = 16 px
+for (let x=0;x<15;x++) for (let z=5;z<10;z++) box(1,1,1,[lam(sideT),lam(sideT),lam(floorT),lam(floorT),lam(sideT),lam(sideT)], x+0.5,-0.5,z+0.5);
+for (let x=0;x<15;x++) for (let z=0;z<5;z++)  box(1,2,1,[lam(sideT),lam(sideT),lam(ledgeT),lam(ledgeT),lam(sideT),lam(sideT)], x+0.5,0,z+0.5);
+// back wall + side walls with jagged heights
+const wr = rng(3);
+for (let x=-1;x<16;x++) box(1, 3+((wr()*3)|0), 1, lam(wallT), x+0.5, 1, -0.5);
+for (let z=0;z<10;z++) { box(1, 3+((wr()*2)|0), 1, lam(wallT), -0.5, 0.5, z+0.5); box(1, 3+((wr()*2)|0), 1, lam(wallT), 15.5, 0.5, z+0.5); }
+// rocks / stalagmites on the lower floor
+const rockMat = lam(wallT);
+for (const [x,z,s] of [[2,7.5,.7],[4.6,8.6,.5],[10.5,7.2,.8],[13,8.8,.6],[8.4,9.1,.45]]) {
+  const m=new THREE.Mesh(new THREE.ConeGeometry(s*0.6, s*1.6, 5), rockMat); m.position.set(x, s*0.8, z); scene.add(m); }
+// glowing crystals in the walls (brand purple) for cave atmosphere
+const crysMat = new THREE.MeshBasicMaterial({ color:'#8a6bff' }), crysMat2 = new THREE.MeshBasicMaterial({ color:'#b9a6ff' });
+for (const [x,y,z,s,r] of [[0.1,1.6,1.5,.35,.4],[0.1,1.2,6.5,.3,-.3],[14.9,1.4,3,.4,-.5],[14.9,0.9,7.5,.3,.3],[4,3.1,-0.05,.3,0],[8.5,2.8,-0.05,.38,.2],[13.8,3.3,-0.05,.28,-.2]]) {
+  const m=new THREE.Mesh(new THREE.OctahedronGeometry(s,0), r>0?crysMat:crysMat2); m.position.set(x,y,z); m.rotation.z=r; m.scale.y=1.8; scene.add(m);
+  const l=new THREE.PointLight('#8a6bff', 1.6, 3.2, 1.6); l.position.set(x+(x<1?0.6:x>14?-0.6:0), y, z+(z<0.5?0.6:0)); scene.add(l); }
+// ledge lip (the one-way ledge you fall off): darker strip on the front edge
+for (let x=0;x<15;x++) box(1,0.12,0.18, lam(sideT), x+0.5, 1.06, 4.91);
+// exit ladder on the back wall at x=12
+const ladMat = new THREE.MeshLambertMaterial({ color:'#c09a62' });
+box(0.08,2.2,0.08, ladMat, 11.65, 2.1, 0.08); box(0.08,2.2,0.08, ladMat, 12.35, 2.1, 0.08);
+for (let i=0;i<6;i++) box(0.7,0.07,0.07, ladMat, 12, 1.25+i*0.36, 0.08);
+const hole = new THREE.Mesh(new THREE.PlaneGeometry(1.1,0.9), new THREE.MeshBasicMaterial({ color:'#b9a6ff' }));
+hole.position.set(12, 3.45, 0.02); scene.add(hole);
+// start marker (glowing tile)
+const startMat = new THREE.MeshBasicMaterial({ color:'#8a6bff', transparent:true, opacity:0.55 });
+const start = new THREE.Mesh(new THREE.PlaneGeometry(0.9,0.9), startMat); start.rotation.x=-Math.PI/2; start.position.set(2,1.02,2.5); scene.add(start);
+
+/* ---------- original explorer sprite (12x16, drawn from strings) ---------- */
+// k outline, c cap (brand purple), v visor, s skin, j jacket (amber), p pack, l legs, b boots, e eye
+const SP = {
+ side: [
+ '....kkkk....','...kccccck..','..kccccccvk.','..kcccccvvk.','..kssssesk..','..ksssssk...','...kssssk...',
+ '..kjjjjjpk..','.kjjjjjjppk.','.kjjjjjjppk.','.ksjjjjjppk.','..kjjjjjk...','..klllllk...','..kll.llk...','.kbb..kbbk..','..kk...kk...'],
+ side2: [
+ '....kkkk....','...kccccck..','..kccccccvk.','..kcccccvvk.','..kssssesk..','..ksssssk...','...kssssk...',
+ '..kjjjjjpk..','.kjjjjjjppk.','.kjjjjjjppk.','.ksjjjjjppk.','..kjjjjjk...','..klllllk...','...klllk....','...kbbbk....','....kkk.....'],
+ down: [
+ '...kkkkkk...','..kccccccck.','.kccccccccck','.kvvvvvvvvvk','.kssssssssk.','.ksekssseks.','..kssssssk..',
+ '.pkjjjjjjkp.','pkjjjjjjjjkp','pkjjjjjjjjkp','ksjjjjjjjjsk','.kjjjjjjjjk.','..kllkkllk..','..kllk.kllk.','.kbbk..kbbk.','..kk....kk..'],
+};
+const COL = { k:'#0b0a12', c:'#8a6bff', v:'#2a1470', s:'#f6cda0', j:'#ffb35c', p:'#6d4b8f', l:'#3e3050', b:'#3b2a22', e:'#0b0a12' };
+function spriteTex(rows, flip){ return tex((g)=>{ g.clearRect(0,0,16,16);
+  rows.forEach((row,y)=>[...row].forEach((ch,x)=>{ if(ch==='.') return; g.fillStyle=COL[ch]; g.fillRect(flip?13-x:x+2, y, 1, 1); })); }, 16); }
+const TX = { r1:spriteTex(SP.side), r2:spriteTex(SP.side2), d1:spriteTex(SP.down), d2:spriteTex(SP.down) };
+const heroMat = new THREE.SpriteMaterial({ map:TX.r1, transparent:true });
+const hero = new THREE.Sprite(heroMat); hero.scale.set(1.35,1.35,1); scene.add(hero);
+const shadow = new THREE.Mesh(new THREE.CircleGeometry(0.32, 10), new THREE.MeshBasicMaterial({ color:'#0b0a12', transparent:true, opacity:0.45 }));
+shadow.rotation.x = -Math.PI/2; scene.add(shadow);
+
+// floating note above the head: paper + arrow
+const noteC = document.createElement('canvas'); noteC.width = noteC.height = 16; const ng = noteC.getContext('2d');
+const noteT = new THREE.CanvasTexture(noteC); noteT.magFilter = noteT.minFilter = THREE.NearestFilter; noteT.colorSpace = THREE.SRGBColorSpace;
+function drawNote(kind, ok){ ng.clearRect(0,0,16,16); ng.fillStyle='#0b0a12'; ng.fillRect(1,1,14,14); ng.fillStyle=ok?'#b9a6ff':'#f4f2ff'; ng.fillRect(2,2,12,12);
+  ng.fillStyle = ok ? '#2a1470' : '#ff5a6e';
+  if (kind==='down'){ ng.fillRect(7,4,2,6); ng.fillRect(5,9,6,1); ng.fillRect(6,10,4,1); ng.fillRect(7,11,2,1); }
+  else { ng.fillRect(4,7,6,2); ng.fillRect(9,5,1,6); ng.fillRect(10,6,1,4); ng.fillRect(11,7,1,2); }
+  noteT.needsUpdate = true; }
+const note = new THREE.Sprite(new THREE.SpriteMaterial({ map:noteT, transparent:true })); note.scale.set(0.62,0.62,1); scene.add(note);
+
+// dust particles (pooled)
+const dust = []; const dustMat = new THREE.MeshBasicMaterial({ color:'#c09a62' });
+for (let i=0;i<10;i++){ const m=new THREE.Mesh(new THREE.BoxGeometry(0.1,0.1,0.1), dustMat); m.visible=false; scene.add(m); dust.push(m); }
+
+/* ---------- motion ---------- */
+const ease = t => t<0.5 ? 2*t*t : 1-((-2*t+2)**2)/2;
+const lerp = (a,b,t) => a+(b-a)*t;
+const clamp = (v,a,b) => Math.min(b,Math.max(a,v));
+const seg = (t,a,b) => clamp((t-a)/(b-a),0,1);
+const START = [2, 1, 2.5];
+
+// one failed attempt, u in [0,1): walk right, turn south, hop off the ledge, land, blink back to start
+function failPose(u){
+  const p = { x:START[0], y:START[1], z:START[2], face:'r', walk:false, vis:1, dustT:-1, note:'down', ok:false };
+  if (u < 0.10) { p.vis = u < 0.04 ? (Math.floor(u*200)%2) : 1; return p; }
+  if (u < 0.48) { const k=ease(seg(u,0.10,0.48)); p.x=lerp(2,8,k); p.walk=true; return p; }
+  if (u < 0.60) { const k=ease(seg(u,0.48,0.60)); p.x=8; p.z=lerp(2.5,4.4,k); p.face='d'; p.walk=true; return p; }
+  if (u < 0.74) { const k=seg(u,0.60,0.74); p.x=8; p.z=lerp(4.4,5.8,k); p.y=1 - k + Math.sin(k*Math.PI)*0.9; p.face='d'; return p; }
+  p.x=8; p.z=5.8; p.y=0; p.face='d'; p.dustT=u-0.74;
+  if (u > 0.90) p.vis = Math.floor(u*160)%2;            // blink out: "back to where it started"
+  return p;
+}
+// the corrected run: note flips to a right arrow, walks the ledge to the ladder and climbs out
+function winPose(t){
+  const p = { x:START[0], y:START[1], z:START[2], face:'r', walk:false, vis:1, dustT:-1, note:'right', ok:true, climb:0 };
+  if (t < 0.9) { p.note = t < 0.45 ? 'down' : 'right'; p.ok = t >= 0.45; return p; }
+  if (t < 2.9) { const k=ease(seg(t,0.9,2.9)); p.x=lerp(2,12,k); p.z=lerp(2.5,1.1,seg(t,2.2,2.9)); p.walk=true; return p; }
+  const k=ease(seg(t,2.9,DUR-0.3)); p.x=12; p.z=0.55; p.y=1+k*2.3; p.face='d'; p.climb=1; p.vis = k>0.92?0:1; return p;
+}
+
+const $ = id => document.getElementById(id);
+const out = $('px').getContext('2d'); const img = out.createImageData(LW, LH);
+const gl = renderer.getContext(); const buf = new Uint8Array(LW*LH*4);
+
+window.__frame = (t) => {
+  t = clamp(t, 0, DUR - 1e-4);
+  const st = Math.floor(t*12)/12;                         // characters animate at 12 fps
+  let p, attempt = 0;
+  if (MODE === 'fail') { const A = DUR/3; attempt = Math.min(2, Math.floor(st/A)); p = failPose((st - attempt*A)/A); }
+  else p = winPose(st);
+
+  // sprite + walk cycle
+  const step = Math.floor(st*6)%2;
+  heroMat.map = p.face==='d' ? TX.d1 : (p.walk && step ? TX.r2 : TX.r1);
+  heroMat.map.repeat.x = 1;
+  hero.position.set(p.x, p.y + 0.62 + (p.walk && step ? 0.04 : 0), p.z);
+  hero.visible = !!p.vis; shadow.visible = !!p.vis && !p.climb;
+  shadow.position.set(p.x, (p.y > 0.5 && p.z < 4.95 ? 1 : 0) + 0.015, p.z);
+  lamp.position.set(p.x+0.3, p.y+1.2, p.z+0.4);
+  drawNote(p.note, p.ok); note.visible = !!p.vis; note.position.set(p.x + 0.55, p.y + 1.75 + Math.sin(st*5)*0.04, p.z);
+  // dust on landing
+  dust.forEach((m,i)=>{ if (p.dustT<0 || p.dustT>0.14){ m.visible=false; return; }
+    const a=i/dust.length*Math.PI*2, k=p.dustT/0.14; m.visible=true; m.position.set(p.x+Math.cos(a)*k*0.9, 0.08+Math.sin(k*Math.PI)*0.25, p.z+Math.sin(a)*k*0.5); });
+  startMat.opacity = 0.35 + 0.25*(0.5+0.5*Math.sin(t*4));
+  exitLight.intensity = MODE==='win' ? 2 + 4*seg(t, 2.6, 3.6) : 0.6;
+
+  // camera: gentle 3/4 view that drifts with the hero
+  const fx = clamp(p.x, 5.5, 9.5);
+  cam.position.set(fx + 0.3, 10.5, 15.2 + Math.sin(t*0.5)*0.15);
+  cam.lookAt(fx, 0.6, 3.6);
+  renderer.render(scene, cam);
+
+  // read back, flip, quantize to the palette
+  gl.readPixels(0,0,LW,LH,gl.RGBA,gl.UNSIGNED_BYTE,buf);
+  for (let y=0;y<LH;y++) for (let x=0;x<LW;x++){
+    const si=((LH-1-y)*LW+x)*4, di=(y*LW+x)*4;
+    const c = PRGB[QLUT[((buf[si]>>3)<<10)|((buf[si+1]>>3)<<5)|(buf[si+2]>>3)]];
+    img.data[di]=c[0]; img.data[di+1]=c[1]; img.data[di+2]=c[2]; img.data[di+3]=255; }
+  out.putImageData(img,0,0);
+
+  // HUD
+  if (MODE==='fail') {
+    const A = DUR/3, u = (st - attempt*A)/A;
+    $('clabel').textContent = 'Intento';
+    [1,2,3].forEach(i=>{ const on = i-1 < attempt || (i-1===attempt && u>0.74); const el=$('x'+i); el.className='x'+(on?' on':''); el.textContent=on?'✕':''; });
+    const show = attempt===2 && u>0.8; $('msg').style.opacity = show?1:0; $('msg').innerHTML = 'Siempre vuelve al <b>inicio</b>';
+  } else {
+    $('count').style.display='none';
+    $('msg').style.opacity = t>0.45 && t<2.4 ? 1 : 0; $('msg').innerHTML = 'Nota <b>corregida</b>';
+  }
+};
+window.__ready = true;
+window.__frame(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Kindle</title>
+<style>
+  @font-face { font-family: IT; src: url(inter-tight-latin-800-normal.woff2); font-weight: 800; }
+  @font-face { font-family: IT; src: url(inter-tight-latin-600-normal.woff2); font-weight: 600; }
+  @font-face { font-family: JB; src: url(jetbrains-mono-latin-500-normal.woff2); font-weight: 500; }
+  html, body { margin: 0; background: #0b0a12; }
+  #stage { position: relative; width: 1080px; height: 880px; overflow: hidden;
+           background: radial-gradient(ellipse 60% 55% at 50% 52%, #1b1433 0%, #0b0a12 70%); }
+  canvas#gl { position: absolute; inset: 0; width: 1080px; height: 880px; }
+  .chip { position: absolute; font-family: IT; font-weight: 800; color: #f4f2ff; }
+  #date { left: 50%; bottom: 46px; transform: translateX(-50%); font: 500 28px JB, monospace; letter-spacing: .12em;
+          color: #f4f2ffcc; padding: 10px 20px; border-radius: 10px; background: #0b0a12b0; white-space: nowrap; }
+  #tag { right: 36px; top: 34px; font: 600 20px IT; color: #f4f2ff99; }
+  #clock { left: 64px; top: 64px; font-size: 120px; line-height: 1; letter-spacing: -.02em; }
+  #clock small { display: block; font: 600 30px IT; color: #f4f2ffb0; letter-spacing: 0; margin-top: 14px; }
+  #clock b { color: #8a6bff; }
+  #pg { right: 64px; top: 70px; font: 500 30px JB, monospace; color: #f4f2ffcc; padding: 10px 18px; border-radius: 10px; background: #0b0a12b0; }
+  #no { left: 80%; top: 48%; transform: translate(-50%,-50%); width: 120px; height: 120px; border-radius: 30px; background: #ff5a6e;
+        display: grid; place-items: center; font-size: 76px; color: #0b0a12; opacity: 0; }
+  #msg { left: 50%; bottom: 46px; transform: translateX(-50%); font-size: 46px; padding: 12px 26px; border-radius: 14px;
+         background: #0b0a12d9; white-space: nowrap; opacity: 0; }
+  #msg b { color: #8a6bff; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl" width="1080" height="880"></canvas>
+  <div id="date" class="chip"></div>
+  <div id="clock" class="chip"></div>
+  <div id="pg" class="chip"></div>
+  <div id="no" class="chip">✕</div>
+  <div id="msg" class="chip"></div>
+  <div id="tag" class="chip">Recreación 3D · portadas reales</div>
+</div>
+<script type="importmap">{ "imports": { "three": "./node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+const Q = new URLSearchParams(location.search);
+const MODE = Q.get('mode') || 'covers';            // covers | pages | wake
+const DUR = Number(Q.get('dur') || 8);
+const $ = id => document.getElementById(id);
+const clamp = (v,a,b) => Math.min(b, Math.max(a, v));
+const seg = (t,a,b) => clamp((t-a)/(b-a), 0, 1);
+const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+const lerp = (a,b,t) => a+(b-a)*t;
+
+/* ---------- images ---------- */
+const COVERS = [
+  ['img/p0_la_senal_prototipo.png', '28 SEP 2026 · PROTOTIPO'],
+  ['img/p1_antes_de_dejarlo_volar.png', '29 SEP 2026'],
+  ['img/p3_telar_29sep.png', '29 SEP 2026'],
+  ['img/p4_ilustrador_29sep.png', '29 SEP 2026'],
+  ['img/p2_lampara_30sep.png', '30 SEP 2026'],
+];
+const PAGES = ['img/p1_antes_de_dejarlo_volar.png', 'img/02-editorial-demo.png', 'img/04-article-demo.png'];
+const load = src => new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.src = src; });
+const imgs = {};
+for (const s of new Set([...COVERS.map(c=>c[0]), ...PAGES])) imgs[s] = await load(s);
+await document.fonts.ready;
+
+/* ---------- e-ink screen as a canvas texture ---------- */
+const SC = document.createElement('canvas'); SC.width = 900; SC.height = 1200; const sg = SC.getContext('2d');
+const screenTex = new THREE.CanvasTexture(SC); screenTex.colorSpace = THREE.SRGBColorSpace; screenTex.anisotropy = 8;
+const PAPER = '#d9d9d4';
+function drawScreen(src, flash = 0, dim = 1) {
+  sg.fillStyle = PAPER; sg.fillRect(0, 0, 900, 1200);
+  if (src) {
+    const im = imgs[src]; const s = Math.min(900/im.width, 1200/im.height);
+    const w = im.width*s, h = im.height*s;
+    sg.filter = 'grayscale(1) contrast(1.05)';
+    sg.drawImage(im, (900-w)/2, (1200-h)/2, w, h); sg.filter = 'none';
+    sg.globalCompositeOperation = 'multiply'; sg.fillStyle = PAPER; sg.fillRect(0,0,900,1200); sg.globalCompositeOperation = 'source-over';
+  }
+  if (flash > 0) {                      // e-ink full refresh: the panel inverts to black, then clears
+    sg.fillStyle = `rgba(14,14,16,${flash})`; sg.fillRect(0, 0, 900, 1200);
+  }
+  if (dim < 1) { sg.fillStyle = `rgba(6,6,10,${1-dim})`; sg.fillRect(0,0,900,1200); }
+  screenTex.needsUpdate = true;
+}
+
+/* ---------- Kindle Basic 2014: 119 x 169 x 10.2 mm, screen 90.6 x 122.4 mm, 5.5 mm above center ---------- */
+const mm = 0.01;                                     // 1 unit = 100 mm
+const W = 119*mm, H = 169*mm, TH = 10.2*mm, R = 9*mm;
+function rounded(w, h, r) { const s = new THREE.Shape(); const x = -w/2, y = -h/2;
+  s.moveTo(x+r, y); s.lineTo(x+w-r, y); s.quadraticCurveTo(x+w, y, x+w, y+r); s.lineTo(x+w, y+h-r); s.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+  s.lineTo(x+r, y+h); s.quadraticCurveTo(x, y+h, x, y+h-r); s.lineTo(x, y+r); s.quadraticCurveTo(x, y, x+r, y); return s; }
+const bodyGeo = new THREE.ExtrudeGeometry(rounded(W - 2*2*mm, H - 2*2*mm, R), { depth: TH - 4*mm, bevelEnabled: true, bevelSize: 2*mm, bevelThickness: 2*mm, bevelSegments: 6, curveSegments: 24 });
+bodyGeo.translate(0, 0, -(TH-4*mm)/2);
+const plastic = new THREE.MeshPhysicalMaterial({ color: '#141416', roughness: .42, metalness: 0, clearcoat: .35, clearcoatRoughness: .5 });
+const kindle = new THREE.Group();
+const gltf = await new GLTFLoader().loadAsync('kindle.glb');
+const model = gltf.scene; model.rotation.x = Math.PI/2; model.scale.setScalar(10);   // modelo de Pablo: metros, pantalla hacia +Y
+kindle.add(model);
+screenTex.flipY = false;
+const parts = {};
+model.traverse(o => { if (o.isMesh) { parts[o.name] = o; o.material = o.material.clone(); } });
+const scr = Object.values(parts).find(o => /pantalla/i.test(o.name));
+scr.material = new THREE.MeshStandardMaterial({ map: screenTex, roughness: .9, emissive: '#ffffff', emissiveMap: screenTex, emissiveIntensity: .32 });
+const bodyMeshes = Object.values(parts).filter(o => o !== scr);
+
+/* ---------- scene ---------- */
+const renderer = new THREE.WebGLRenderer({ canvas: $('gl'), antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(window.devicePixelRatio || 1); renderer.setSize(1080, 880, false);
+renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+const scene = new THREE.Scene();
+scene.add(kindle);
+const cam = new THREE.PerspectiveCamera(30, 1080/880, .01, 100); cam.position.set(0, 0, 4.2);
+scene.add(new THREE.HemisphereLight('#c9bcff', '#120d22', .55));
+const key = new THREE.DirectionalLight('#fff1e0', 1.6); key.position.set(1.5, 2, 3); scene.add(key);
+const rimL = new THREE.PointLight('#8a6bff', 14, 6, 1.4); rimL.position.set(-1.4, .6, -1); scene.add(rimL);
+const rimR = new THREE.PointLight('#8a6bff', 8, 6, 1.4); rimR.position.set(1.5, -.8, -.8); scene.add(rimR);
+const dawn = new THREE.PointLight('#ffb35c', 0, 6, 1.4); dawn.position.set(1.6, .2, 1.4); scene.add(dawn);
+
+/* ---------- modes ---------- */
+function covers(t) {
+  const n = COVERS.length, slot = DUR / n;
+  const i = Math.min(n-1, Math.floor(t / slot)), u = (t - i*slot) / slot;
+  // refresh at the start of each slot (not the first): ~0.22 s black flash
+  const fl = i > 0 && u*slot < .22 ? Math.sin(seg(u*slot, 0, .22) * Math.PI) : 0;
+  drawScreen(COVERS[i][0], fl);
+  $('date').textContent = COVERS[i][1];
+  kindle.rotation.set(-.08 + Math.sin(t*.4)*.02, lerp(-.42, .32, ease(seg(t, 0, DUR))), .02);
+  kindle.position.set(0, .02, 0);
+  cam.position.set(0, 0, lerp(4.35, 3.85, ease(seg(t, 0, DUR))));
+}
+function pages(t) {
+  // 0–40%: stuck on the cover, a tap bounces back (✕). Then KOReader: 1 → 2 → 3 with e-ink refreshes.
+  const stuck = DUR * .455;
+  let src = PAGES[0], fl = 0, pg = '1 / 7', shake = 0, no = 0, msg = 0;
+  if (t < stuck) {
+    for (const tap of [stuck*.32, stuck*.7]) { const d = t - tap; if (d > 0 && d < .45) { shake = Math.sin(d*40) * (1 - d/.45); no = 1 - d/.45; } }
+  } else {
+    const k = (t - stuck) / (DUR - stuck);
+    const p = k < .34 ? 0 : k < .67 ? 1 : 2;
+    const local = (k - [0,.34,.67][p]) * (DUR - stuck);
+    if (p > 0 && local < .22) fl = Math.sin(seg(local, 0, .22) * Math.PI);
+    src = PAGES[p]; pg = `${p+1} / 7`; msg = 1;
+  }
+  drawScreen(src, fl);
+  $('pg').textContent = pg; $('no').style.opacity = no.toFixed(3);
+  $('msg').innerHTML = 'Con <b>KOReader</b> ya pasa de página'; $('msg').style.opacity = msg;
+  $('date').style.display = 'none';
+  kindle.rotation.set(-.04, .14 + shake*.06, 0); kindle.position.set(shake*.03, 0, 0);
+  cam.position.set(0, 0, lerp(4.5, 4.25, seg(t, 0, DUR)));
+}
+function wake(t) {
+  // asleep in the dark; the clock runs 06:00 → 08:00, dawn light comes in, the screen refreshes to the new cover
+  const k = ease(seg(t, .2, DUR*.55));
+  const mins = Math.round(lerp(6*60, 8*60, k)), hh = String(Math.floor(mins/60)).padStart(2,'0'), mm2 = String(mins%60).padStart(2,'0');
+  const woke = t > DUR*.62;
+  $('clock').innerHTML = `${hh}<b>:</b>${mm2}<small>${woke ? 'Se despertó sola' : 'En reposo'}</small>`;
+  const fl = woke && t - DUR*.62 < .25 ? Math.sin(seg(t - DUR*.62, 0, .25) * Math.PI) : 0;
+  drawScreen(woke ? 'img/p2_lampara_30sep.png' : 'img/p1_antes_de_dejarlo_volar.png', fl, woke ? 1 : .55);
+  $('date').textContent = woke ? 'WI-FI · EDICIÓN DESCARGADA' : '';
+  $('date').style.opacity = woke ? 1 : 0;
+  dawn.intensity = lerp(0, 9, seg(t, .4, DUR*.7)); rimL.intensity = lerp(6, 14, seg(t, 0, DUR));
+  kindle.rotation.set(-1.05, 0, .35); kindle.position.set(.25, -.15, 0);   // lying on the nightstand, seen from above
+  cam.position.set(.25, lerp(-.2, -.05, seg(t,0,DUR)), lerp(3.6, 3.3, seg(t, 0, DUR)));
+}
+
+
+/* ---------- x-ray: what was installed, layer by layer ---------- */
+const LAYERS = [
+  ['Kindle Basic 2014 · KT2', 'firmware 5.12.2.2'],
+  ['Jailbreak', 'WinterBreak2'],
+  ['KOReader', 'lector instalado'],
+  ['Wi-Fi + despertador', 'baja la edición a las 08:00'],
+];
+const SHOW = (Q.get('layers') || '0,1').split(',').map(Number);
+const AT = (Q.get('at') || '5.8,8.4').split(',').map(Number);
+const plates = LAYERS.map((_, i) => {
+  const g = new THREE.Group();
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(.86, 1.16), new THREE.MeshBasicMaterial({ color: '#8a6bff', transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false }));
+  const e = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry), new THREE.LineBasicMaterial({ color: '#b9a6ff', transparent: true, opacity: 0 }));
+  g.add(m, e); g.userData = { m, e }; g.position.set(0, .055, -.05); kindle.add(g); return g;
+});
+const xmat = new THREE.LineBasicMaterial({ color: '#b9a6ff', transparent: true, opacity: 0 });
+const ghosts = bodyMeshes.map(o => { const gh = new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 25), xmat); o.add(gh); return gh; });
+const backBits = Object.values(parts).filter(o => /amazon|legal|sonrisa/i.test(o.name));
+const cable = new THREE.Group();
+const plug = new THREE.Mesh(new THREE.BoxGeometry(.11, .16, .055), new THREE.MeshStandardMaterial({ color: '#2b2b30', roughness: .5 }));
+const wire = new THREE.Mesh(new THREE.CylinderGeometry(.022, .022, 2.2, 16), new THREE.MeshStandardMaterial({ color: '#1d1d22', roughness: .6 }));
+wire.position.y = -1.18; cable.add(plug, wire); kindle.add(cable);
+const lab = document.createElement('div'); lab.id = 'labs'; document.getElementById('stage').appendChild(lab);
+const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('width', 1080); svg.setAttribute('height', 880);
+svg.style.cssText = 'position:absolute;inset:0;pointer-events:none'; document.getElementById('stage').appendChild(svg);
+const css = document.createElement('style'); css.textContent = `
+  .lb { position:absolute; font: 800 34px IT; color:#f4f2ff; white-space:nowrap; transform: translateY(-50%); }
+  .lb small { display:block; font: 500 22px JB, monospace; color:#b9a6ff; margin-top:4px; letter-spacing:.04em; }
+  .usb { position:absolute; font: 800 34px IT; color:#f4f2ff; padding:8px 18px; border-radius:12px; background:#0b0a12d9; }
+  .usb b { color:#8a6bff; }`; document.head.appendChild(css);
+const usb = document.createElement('div'); usb.className = 'usb'; usb.innerHTML = 'Cable <b>USB</b> → Mac'; document.getElementById('stage').appendChild(usb);
+const labels = LAYERS.map(([a, b]) => { const d = document.createElement('div'); d.className = 'lb'; d.innerHTML = `${a}<small>${b}</small>`; lab.appendChild(d); return d; });
+const lines = LAYERS.map(() => { const l = document.createElementNS('http://www.w3.org/2000/svg', 'path'); l.setAttribute('stroke', '#8a6bff'); l.setAttribute('stroke-width', 3); l.setAttribute('fill', 'none'); svg.appendChild(l); return l; });
+const proj = v => { const p = v.clone().project(cam); return [(p.x+1)/2*1080, (1-p.y)/2*880]; };
+function xray(t) {
+  drawScreen('img/p0_la_senal_prototipo.png');
+  $('date').style.display = 'none'; $('tag').textContent = 'Recreación 3D';
+  const cIn = ease(seg(t, 2.2, 3.2)), cOut = seg(t, 4.6, 5.4);
+  cable.visible = t < 5.4; cable.position.set(0, lerp(-1.9, -.97, cIn) - cOut*1.2, -.03);
+  usb.style.opacity = (seg(t, 2.6, 3.0) * (1 - seg(t, 4.6, 5.0))).toFixed(3);
+  const ux = proj(new THREE.Vector3(.12, -1.0, 0).applyMatrix4(kindle.matrixWorld)); usb.style.left = '600px'; usb.style.top = '330px';
+  const k = ease(seg(t, 3.8, 5.0));                       // x-ray on
+  bodyMeshes.forEach(o => { o.material.transparent = true; o.material.opacity = 1 - .85*k; o.material.depthWrite = k < .5; });
+  scr.material.transparent = true; scr.material.opacity = 1 - .8*k;
+  xmat.opacity = .9*k; backBits.forEach(o => o.visible = k < .3);
+  const turn = ease(seg(t, 4.2, 6.2));
+  kindle.rotation.set(-.05, lerp(0, -.62, turn), 0); kindle.position.set(lerp(0, -.28, turn), 0, 0);
+  cam.position.set(0, 0, lerp(4.2, 4.0, seg(t, 0, DUR)));
+  cam.position.z *= 1.1; cam.lookAt(0, .07, 0); cam.updateMatrixWorld(); kindle.updateMatrixWorld(true);
+  plates.forEach((g, i) => {
+    const j = SHOW.indexOf(i), on = j < 0 ? 0 : ease(seg(t, AT[j], AT[j] + .5));
+    g.visible = on > 0; g.position.z = -.05 - on*(.32 + .34*j);
+    g.userData.m.material.opacity = .16*on; g.userData.e.material.opacity = .9*on;
+    const a = proj(new THREE.Vector3(.43, .3 - .32*j, 0).applyMatrix4(g.matrixWorld));
+    const lx = 640, ly = 250 + j*150;
+    labels[i].style.left = lx + 'px'; labels[i].style.top = ly + 'px'; labels[i].style.opacity = on.toFixed(3);
+    lines[i].setAttribute('d', `M${a[0]},${a[1]} L${lx-24},${ly}`); lines[i].style.opacity = on.toFixed(3);
+  });
+}
+
+window.__frame = (t) => {
+  t = clamp(t, 0, DUR - 1e-4);
+  ['clock','pg','no','msg'].forEach(id => { if (MODE !== {clock:'wake',pg:'pages',no:'pages',msg:'pages'}[id]) $(id).style.display = 'none'; });
+  if (MODE !== 'xray') { cable.visible = false; usb.style.display = 'none'; lab.style.display = 'none'; svg.style.display = 'none'; plates.forEach(g => g.visible = false); }
+  ({ covers, pages, wake, xray })[MODE](t);
+  if (MODE !== 'xray') { cam.position.z *= 1.1; cam.lookAt(MODE === 'wake' ? .25 : 0, MODE === 'wake' ? -.15 : .07, 0); }
+  renderer.render(scene, cam);
+};
+window.__ready = true;
+window.__frame(0);
+</script>
+</body>
+</html>

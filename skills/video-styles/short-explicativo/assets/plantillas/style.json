@@ -1,0 +1,38 @@
+{
+  "background": "#0b0a12",
+  "punch_zoom": 1.1,
+  "caption": {
+    "font": "fonts/inter-tight-latin-800-normal.woff2",
+    "weight": 800,
+    "size": 68,
+    "color": "#f4f2ff",
+    "box": "#0b0a12CC",
+    "border": "#00000000",
+    "radius": 12,
+    "pad": [
+      24,
+      12
+    ],
+    "uppercase": false,
+    "max_words": 3,
+    "max_chars": 20,
+    "emphasis": "#8a6bff"
+  },
+  "card": {
+    "background": "#0b0a12",
+    "panel": "#15131f",
+    "border": "#f4f2ff24",
+    "text": "#f4f2ff",
+    "accent": "#8a6bff",
+    "title_font": "fonts/inter-tight-latin-800-normal.woff2",
+    "title_weight": 800,
+    "body_font": "fonts/inter-tight-latin-600-normal.woff2",
+    "body_weight": 600,
+    "number_font": "fonts/inter-tight-latin-800-normal.woff2",
+    "number_weight": 800
+  },
+  "sound_effects": "off",
+  "speaker_pad": "blur",
+  "speaker_pad_image": "broll/pad_estrellas.jpg",
+  "speaker_feather": 90
+}

@@ -1,0 +1,78 @@
+<template id="proceso-template">
+  <div data-composition-id="proceso" data-width="1080" data-height="880" data-duration="7.6">
+    <style>
+      .pg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 45%, #1b1433 0%, #0b0a12 72%); overflow: hidden; }
+      .pg .step { position: absolute; left: 70px; top: 54px; font: 800 58px Ftitle, sans-serif; color: #f4f2ff; letter-spacing: -.01em; }
+      .pg .step b { color: #8a6bff; font-weight: 800; }
+      .pg .grid { position: absolute; left: 70px; top: 170px; width: 940px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+      .pg .env { height: 104px; border-radius: 18px; background: #15131f; border: 2px solid #f4f2ff24; display: flex; flex-direction: column;
+                 justify-content: center; padding: 0 20px; box-sizing: border-box; }
+      .pg .env .f { font: 600 22px Fbody, sans-serif; color: #f4f2ff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .pg .env .s { font: 600 18px Fbody, sans-serif; color: #f4f2ff80; margin-top: 6px; }
+      .pg .env.unread { border-color: #8a6bff; }
+      .pg .env.unread .s { color: #b9a6ff; }
+      .pg .sum { position: absolute; left: 70px; top: 170px; width: 940px; }
+      .pg .row { display: flex; align-items: center; gap: 22px; height: 92px; margin-bottom: 14px; border-radius: 18px; background: #15131f;
+                 border: 2px solid #8a6bff; padding: 0 26px; box-sizing: border-box; }
+      .pg .row .n { font: 800 44px Fnum, sans-serif; color: #8a6bff; width: 40px; }
+      .pg .row .l { flex: 1; height: 14px; border-radius: 7px; background: #f4f2ff3a; }
+      .pg .row .l.b { flex: .7; }
+      .pg .kin { position: absolute; left: 50%; top: 610px; width: 150px; height: 210px; margin-left: -75px; border-radius: 18px; background: #141416;
+                 border: 2px solid #2a2a30; box-shadow: 0 0 60px #8a6bff55; }
+      .pg .kin .scr { position: absolute; left: 14px; right: 14px; top: 14px; bottom: 40px; background: #d9d9d4; border-radius: 3px; }
+      .pg .kin .scr i { display: block; height: 7px; margin: 12px 12px 0; border-radius: 4px; background: #3a3a3c; }
+      .pg .arrow { position: absolute; left: 50%; top: 548px; margin-left: -18px; font: 800 52px Ftitle, sans-serif; color: #8a6bff; }
+    </style>
+    <div class="pg">
+      <div class="step s1">Tus newsletters en <b>Gmail</b></div>
+      <div class="step s2">Solo los <b>no leídos</b></div>
+      <div class="step s3">La IA los <b>resume</b></div>
+      <div class="step s4">Hasta <b>4</b> por mañana</div>
+      <div class="grid">
+        <div class="env r"><div class="f">bensbites</div><div class="s">leído</div></div>
+        <div class="env unread"><div class="f">thealgorithmicbridge</div><div class="s">sin leer</div></div>
+        <div class="env r"><div class="f">sabrinaramonov</div><div class="s">leído</div></div>
+        <div class="env unread"><div class="f">jonathan.mast</div><div class="s">sin leer</div></div>
+        <div class="env unread"><div class="f">bensbites</div><div class="s">sin leer</div></div>
+        <div class="env r"><div class="f">thealgorithmicbridge</div><div class="s">leído</div></div>
+        <div class="env unread"><div class="f">sabrinaramonov</div><div class="s">sin leer</div></div>
+        <div class="env r"><div class="f">jonathan.mast</div><div class="s">leído</div></div>
+        <div class="env r"><div class="f">sabrinaramonov</div><div class="s">leído</div></div>
+        <div class="env unread"><div class="f">bensbites</div><div class="s">sin leer</div></div>
+        <div class="env r"><div class="f">jonathan.mast</div><div class="s">leído</div></div>
+        <div class="env unread"><div class="f">thealgorithmicbridge</div><div class="s">sin leer</div></div>
+      </div>
+      <div class="sum">
+        <div class="row"><span class="n">1</span><span class="l"></span></div>
+        <div class="row"><span class="n">2</span><span class="l b"></span></div>
+        <div class="row"><span class="n">3</span><span class="l"></span></div>
+        <div class="row"><span class="n">4</span><span class="l b"></span></div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="kin"><div class="scr"><i></i><i style="width:70%"></i><i></i><i style="width:60%"></i></div></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const P = '[data-composition-id="proceso"] ';
+      gsap.set([P+'.s2', P+'.s3', P+'.s4', P+'.sum', P+'.arrow', P+'.kin'], { autoAlpha: 0 });
+      tl.from(P+'.s1', { autoAlpha: 0, y: 20, duration: .35, ease: 'power3.out' }, 0)
+        .from(P+'.env', { autoAlpha: 0, y: 24, duration: .3, stagger: .03, ease: 'power3.out' }, .05)
+        // 0.6 s: "extrae los que no he leído"
+        .to(P+'.s1', { autoAlpha: 0, duration: .2 }, .55).to(P+'.s2', { autoAlpha: 1, duration: .25 }, .65)
+        .to(P+'.env.r', { autoAlpha: .12, scale: .94, duration: .4, ease: 'power2.out' }, .7)
+        // 2.0 s: "genera un resumen"
+        .to(P+'.s2', { autoAlpha: 0, duration: .2 }, 1.9).to(P+'.s3', { autoAlpha: 1, duration: .25 }, 2.0)
+        .to(P+'.grid', { autoAlpha: 0, scale: .9, duration: .45, ease: 'power2.in' }, 2.0)
+        .to(P+'.sum', { autoAlpha: 1, duration: .01 }, 2.4)
+        .from(P+'.row', { autoAlpha: 0, x: -40, duration: .35, stagger: .12, ease: 'power3.out' }, 2.4)
+        // 4.1 s: "4 o 5 puntos"
+        .to(P+'.s3', { autoAlpha: 0, duration: .2 }, 4.0).to(P+'.s4', { autoAlpha: 1, duration: .25 }, 4.1)
+        .to(P+'.row .n', { scale: 1.25, duration: .2, yoyo: true, repeat: 1, stagger: .08 }, 4.15)
+        // 5.4 s: into the Kindle
+        .to(P+'.sum', { y: 120, scale: .5, autoAlpha: 0, duration: .55, ease: 'power2.in' }, 5.4)
+        .to(P+'.arrow', { autoAlpha: 1, duration: .2 }, 5.5)
+        .fromTo(P+'.kin', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .4, ease: 'power3.out' }, 5.6);
+      window.__timelines["proceso"] = tl;
+    </script>
+  </div>
+</template>

@@ -1,0 +1,35 @@
+{
+ "_nota": "Mi Muse y Yo EP1 — generado por partes (A colchón, B pulso intro, C pulso cierre) y sumado en ffmpeg.",
+ "duracion": 1584,
+ "bpm": 90,
+ "acordes": [
+  "Dmaj9",
+  "Bm9",
+  "Gmaj9",
+  "Asus"
+ ],
+ "compases_por_acorde": 2,
+ "reverb": 0.3,
+ "salida": 3.0,
+ "semilla": 7,
+ "acorde_final": "Dmaj9",
+ "capas": {
+  "bombo": {
+   "desde": 1512,
+   "hasta": 1578
+  },
+  "bajo": {
+   "desde": 1512,
+   "hasta": 1578
+  },
+  "arpegio": {
+   "desde": 1512,
+   "hasta": 1578,
+   "nivel": [
+    0.08,
+    0.14
+   ]
+  }
+ },
+ "floracion": 1578.0
+}

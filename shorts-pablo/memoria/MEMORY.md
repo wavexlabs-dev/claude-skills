@@ -1,0 +1,4 @@
+- [Cámara vertical 4K para Shorts](camara-vertical-4k-shorts.md) — clips C08xx rotados −90°; proxy lanczos x264, no videotoolbox
+- [Flujo de Shorts de Pablo](flujo-shorts-pablo.md) — reglas acordadas: skills, música ElevenLabs, 1.2x, −13 LUFS, master vs share, respaldos
+- [Seguir el flujo de la sesión](seguir-flujo-de-la-sesion.md) — carpeta nueva = solo la toma; no adoptar estilos/assets de otras sesiones
+- [Generar con Sume](generar-con-sume.md) — imágenes/video IA por el MCP de Sume; ElevenLabs solo música

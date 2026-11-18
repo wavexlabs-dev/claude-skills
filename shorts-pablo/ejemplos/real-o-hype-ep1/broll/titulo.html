@@ -1,0 +1,29 @@
+<template id="titulo-template">
+  <div data-composition-id="titulo" data-width="1080" data-height="1920" data-duration="5.30">
+    <style>
+      .tt { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 45% at 50% 50%, #1b1433 0%, #0b0a12 72%); overflow: hidden; }
+      .tt .pill { position: absolute; left: 50%; top: 610px; transform: translateX(-50%); font: 800 34px Fbody, sans-serif; color: #b9a6ff;
+                  border: 2px solid #8a6bff; border-radius: 40px; padding: 10px 30px; letter-spacing: .18em; }
+      .tt .l { position: absolute; left: 0; right: 0; text-align: center; font: 800 150px Ftitle, sans-serif; color: #f4f2ff; letter-spacing: -.03em; line-height: 1; }
+      .tt .l1 { top: 740px; } .tt .l2 { top: 910px; }
+      .tt .l2 b { color: #8a6bff; }
+      .tt .sub { position: absolute; left: 0; right: 0; top: 1130px; text-align: center; font: 600 38px Fbody, sans-serif; color: #f4f2ff99; }
+    </style>
+    <div class="tt">
+      <div class="pill">NUEVA SERIE · EP 1</div>
+      <div class="l l1">¿Es real</div>
+      <div class="l l2">o es <b>hype</b>?</div>
+      <div class="sub">Lo que ves de IA en internet, a prueba</div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const P = '[data-composition-id="titulo"] ';
+      tl.from(P+'.pill', { autoAlpha: 0, y: -20, duration: .35, ease: 'power3.out' }, 0)
+        .from(P+'.l1', { autoAlpha: 0, y: 40, duration: .4, ease: 'power3.out' }, 1.94)
+        .from(P+'.l2', { autoAlpha: 0, y: 40, duration: .4, ease: 'power3.out' }, 2.58)
+        .from(P+'.l2 b', { scale: 1.4, duration: .35, ease: 'back.out(2)' }, 3.06)
+        .from(P+'.sub', { autoAlpha: 0, duration: .4 }, 3.25);
+      window.__timelines["titulo"] = tl;
+    </script>
+  </div>
+</template>

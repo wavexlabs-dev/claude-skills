@@ -1,0 +1,28 @@
+html, body { margin: 0; height: 100%; overflow: hidden; background: #050506; color: #cfcfcf; font: 13px/1.4 -apple-system, sans-serif; }
+#viewport { position: absolute; inset: 0 0 64px 0; display: grid; place-items: center; overflow: hidden; }
+#stage { position: relative; overflow: hidden; flex: none; transform-origin: center; }
+.layer { position: absolute; inset: 0; }
+
+#controls { position: absolute; left: 0; right: 0; bottom: 0; height: 64px; display: flex; align-items: center; gap: 14px; padding: 0 16px; background: #111113; border-top: 1px solid #222; }
+#play { width: 36px; height: 36px; border: 0; border-radius: 8px; background: #222; color: #eee; font-size: 14px; cursor: pointer; }
+#track { position: relative; flex: 1; }
+#scrub { width: 100%; margin: 0; }
+#marks { position: absolute; left: 0; right: 0; top: -10px; height: 8px; pointer-events: none; }
+#marks i { position: absolute; width: 2px; height: 8px; background: #FF5B2E; opacity: .7; }
+#readout { font-variant-numeric: tabular-nums; min-width: 170px; text-align: right; color: #999; }
+
+body.render #controls { display: none; }
+body.render #viewport { inset: 0; display: block; }
+body.render #stage { transform: none !important; }
+
+/* Fuentes de marca: archivos locales en assets/fonts (nada de red durante el render). Ejemplo:
+@font-face { font-family: "Marca"; src: url(/assets/fonts/Marca.ttf); } */
+
+/* Mi Muse y Yo — fuentes locales (fontsource, OFL) */
+@font-face { font-family: "Inter Tight"; font-weight: 400; src: url(/assets/fonts/inter-tight-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Inter Tight"; font-weight: 600; src: url(/assets/fonts/inter-tight-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Inter Tight"; font-weight: 800; src: url(/assets/fonts/inter-tight-latin-800-normal.woff2) format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; src: url(/assets/fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url(/assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2"); }
+
+body.alpha, html:has(body.alpha) { background: transparent !important; }

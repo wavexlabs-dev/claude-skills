@@ -1,0 +1,30 @@
+<template id="veredicto-template">
+  <div data-composition-id="veredicto" data-width="1080" data-height="880" data-duration="5.76">
+    <style>
+      .vd { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 45%, #1b1433 0%, #0b0a12 72%); overflow: hidden; }
+      .vd .lab { position: absolute; left: 0; right: 0; top: 90px; text-align: center; font: 800 40px Fbody, sans-serif; color: #f4f2ff99; letter-spacing: .3em; }
+      .vd .stamp { position: absolute; left: 50%; top: 170px; width: 640px; margin-left: -320px; text-align: center; font: 800 190px Ftitle, sans-serif;
+                   color: #8a6bff; border: 12px solid #8a6bff; border-radius: 28px; line-height: 1.15; transform: rotate(-6deg); box-shadow: 0 0 80px #8a6bff55; }
+      .vd .row { position: absolute; left: 150px; right: 150px; height: 96px; border-radius: 18px; background: #15131f; border: 2px solid #f4f2ff24;
+                 display: flex; align-items: center; gap: 22px; padding: 0 30px; box-sizing: border-box; font: 700 42px Fbody, sans-serif; color: #f4f2ff; }
+      .vd .row i { font-style: normal; color: #8a6bff; font-weight: 800; }
+      .vd .r1 { top: 520px; } .vd .r2 { top: 636px; }
+    </style>
+    <div class="vd">
+      <div class="lab">VEREDICTO</div>
+      <div class="stamp">HYPE</div>
+      <div class="row r1"><i>✕</i> No hay agentes de IA</div>
+      <div class="row r2"><i>✓</i> Es una extensión de Chrome</div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const P = '[data-composition-id="veredicto"] ';
+      tl.from(P+'.lab', { autoAlpha: 0, duration: .3 }, 0)
+        .from(P+'.stamp', { scale: 2.2, autoAlpha: 0, duration: .35, ease: 'power4.in' }, .15)
+        .to(P+'.stamp', { x: 6, duration: .05, yoyo: true, repeat: 3 }, .5)
+        .from(P+'.r1', { autoAlpha: 0, x: -40, duration: .35, ease: 'power3.out' }, 2.0)
+        .from(P+'.r2', { autoAlpha: 0, x: -40, duration: .35, ease: 'power3.out' }, 3.8);
+      window.__timelines["veredicto"] = tl;
+    </script>
+  </div>
+</template>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<style>
+@font-face { font-family: "Inter Tight"; font-weight: 600; src: url(inter-tight-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Inter Tight"; font-weight: 800; src: url(inter-tight-latin-800-normal.woff2) format("woff2"); }
+html, body { margin: 0; background: #0b0a12; }
+#t { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: "Inter Tight", sans-serif; }
+#t > img.base { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+h1 { position: absolute; left: 84px; top: 70px; margin: 0; font-weight: 800; font-size: 184px; line-height: 0.92; letter-spacing: -0.035em; color: #fff;
+     text-shadow: 0 10px 40px rgba(11,10,18,0.55); }
+.row { position: absolute; left: 88px; top: 300px; display: flex; align-items: center; gap: 26px; }
+.icon { width: 150px; height: 150px; border-radius: 38px; overflow: hidden; background: #f3efe8; box-shadow: 0 16px 40px rgba(0,0,0,0.45), 0 0 0 4px rgba(255,255,255,0.9); }
+.icon img { width: 100%; height: 100%; object-fit: cover; }
+.pill { padding: 22px 42px 26px; border-radius: 999px; background: #f4f2ff; color: #0b0a12; font-weight: 800; font-size: 78px; line-height: 1; letter-spacing: -0.025em;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+</style></head>
+<body><div id="t">
+  <img class="base" src="base.png">
+  <img id="cards" src="cards.png" style="display:none;position:absolute;left:0;top:574px;width:918px">
+  <svg id="cursor" viewBox="0 0 80 90" style="display:none;position:absolute;left:806px;top:948px;width:84px;height:94px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))">
+    <path d="M8 6 L70 40 L42 47 L56 78 L44 84 L30 53 L8 72 Z" fill="#8a6bff" stroke="#fff" stroke-width="5" stroke-linejoin="round"/></svg>
+  <h1>Muse de Meta</h1>
+  <div class="row"><div class="icon"><img src="cody.png"></div><div class="pill" id="pill">Guía completa</div></div>
+</div>
+<script>const q=new URLSearchParams(location.search);
+if(q.get('pill')) document.getElementById('pill').textContent=q.get('pill');
+if(q.get('base')) document.querySelector('img.base').src=q.get('base');
+if(q.get('icon')==='0') document.querySelector('.icon').style.display='none';
+if(q.get('cards')==='1'){ document.getElementById('cards').style.display='block'; document.getElementById('cursor').style.display='block'; }
+if(q.get('fit')==='1'){ const h=document.querySelector('h1'); h.innerHTML='Muse<br>de Meta'; h.style.fontSize='226px'; h.style.left='100px'; h.style.top='30px';
+  const r=document.querySelector('.row'); r.style.left='106px'; r.style.top='490px'; document.getElementById('pill').style.fontSize='70px'; }
+else if(q.get('big')==='1'){ const h=document.querySelector('h1'); h.innerHTML='Muse<br>de Meta'; h.style.fontSize='238px'; h.style.left='104px'; h.style.top='40px';
+  const r=document.querySelector('.row'); r.style.left='110px'; r.style.top='530px'; document.getElementById('pill').style.fontSize='74px';
+  const c=document.getElementById('cards'); c.style.width='760px'; c.style.top='668px'; c.style.left='26px';
+  const k=document.getElementById('cursor'); k.style.left='690px'; k.style.top='952px'; k.style.width='74px'; k.style.height='83px'; }
+else if(q.get('two')==='1'){ const h=document.querySelector('h1'); h.innerHTML='Muse<br>de Meta'; h.style.fontSize='178px'; h.style.top='58px';
+  document.querySelector('.row').style.top='420px'; }</script>
+</body></html>

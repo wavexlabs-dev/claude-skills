@@ -1,0 +1,7 @@
+{
+  "_nota": "Única fuente de texto en pantalla y en voz. Cada hecho con su frase exacta de origen y su fuente.",
+  "hechos": [],
+  "fuentes": {},
+  "pantalla_video": { "_nota": "Todo texto de UI del video (etiquetas, títulos, CTA) con su origen" },
+  "guion_voz": { "_nota": "Líneas aprobadas, cada una ligada a su hecho", "lineas": [] }
+}

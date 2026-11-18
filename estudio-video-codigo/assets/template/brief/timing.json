@@ -1,0 +1,9 @@
+{
+  "_nota": "Tiempos absolutos en segundos. La voz manda: se miden sus líneas y palabras clave (silencedetect) y la imagen se corta a ellas.",
+  "duracion": 30,
+  "bpm": 120,
+  "musica": "assets/music/bed.wav",
+  "voz": [],
+  "escenas": [],
+  "cues": []
+}

@@ -1,0 +1,20 @@
+{
+  "_nota": "Música progresiva en código (npm run music → assets/music/bed.wav). Tiempos en segundos, idealmente en el beat (60/bpm). Cada capa entra en un momento de la historia; nivel puede ser un número o [inicio, fin] para que crezca. Quita una capa para no usarla.",
+  "duracion": 30,
+  "bpm": 100,
+  "acordes": ["Dmaj9", "Bm9", "Gmaj9", "Asus"],
+  "compases_por_acorde": 2,
+  "capas": {
+    "pad":     { "desde": 0,    "hasta": 30 },
+    "arpegio": { "desde": 6.6,  "hasta": 24.6, "nivel": [0.1, 0.17] },
+    "bombo":   { "desde": 11.4, "hasta": 24.6 },
+    "bajo":    { "desde": 11.4, "hasta": 24.6 },
+    "hat":     { "desde": 15.6, "hasta": 24.6 }
+  },
+  "subida": { "desde": 22.2, "hasta": 26.4 },
+  "floracion": 26.4,
+  "acorde_final": "Dmaj9",
+  "reverb": 0.28,
+  "salida": 1.2,
+  "semilla": 7
+}

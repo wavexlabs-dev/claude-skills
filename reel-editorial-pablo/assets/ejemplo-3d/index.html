@@ -1,0 +1,170 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="tl.js"></script><script src="esquinas.js"></script>
+<style>
+:root{--ink:#0A0A0F;--blue:#1D2DFF;--paper:#F5F4EF;--orange:#FF7A1A;--slate:#9AA3B2}
+*{margin:0;box-sizing:border-box} body{background:#000;overflow:hidden}
+#st{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Space Grotesk',sans-serif;font-weight:700;background:var(--ink)}
+.sc{position:absolute;inset:0;display:none}
+.bg{position:absolute;inset:0;z-index:1}
+.mono{font-family:'IBM Plex Mono',monospace;font-weight:500}
+.h{position:absolute;left:90px;top:300px;width:900px;font-size:112px;line-height:.98;letter-spacing:-.04em;z-index:30}
+.hb{position:absolute;left:90px;top:1250px;width:900px;font-size:104px;line-height:.98;letter-spacing:-.04em;color:var(--paper);z-index:30}
+.h em,.hb em,.sub em{font-style:normal;color:var(--orange)} .w{display:inline-block;white-space:pre}
+.grad{position:absolute;left:0;right:0;bottom:0;height:900px;background:linear-gradient(rgba(10,10,15,0),rgba(10,10,15,.86) 55%);z-index:20}
+.sub{position:absolute;left:0;right:0;top:1545px;text-align:center;font-size:78px;letter-spacing:-.03em;color:var(--paper);text-shadow:0 4px 24px rgba(0,0,0,.8);z-index:30}
+#marco{position:absolute;left:90px;top:96px;font-size:40px;line-height:1;letter-spacing:-.03em;z-index:40}
+#cont{position:absolute;right:90px;top:104px;font-size:22px;letter-spacing:.16em;z-index:40}
+#pw{position:absolute;overflow:hidden;z-index:10} #pv{position:absolute}
+.kk{position:absolute;z-index:5;transform-origin:50% 55%} .kk>img{position:absolute;left:0;top:0;width:100%}
+.scr{position:absolute;left:0;top:0;width:600px;height:800px;transform-origin:0 0;overflow:hidden}
+.scr img{position:absolute;inset:0;width:600px;height:800px} .scr .fl{position:absolute;inset:0}
+.code{position:absolute;left:90px;top:575px;font-size:26px;line-height:1.6;color:rgba(154,163,178,.62);white-space:pre;z-index:4}
+.mm{position:absolute;inset:0;z-index:1;background-color:var(--paper);background-image:linear-gradient(rgba(10,10,15,.08) 2px,transparent 2px),linear-gradient(90deg,rgba(10,10,15,.08) 2px,transparent 2px);background-size:60px 60px}
+.env{position:absolute;z-index:4}
+#grain{position:absolute;inset:0;opacity:.14;mix-blend-mode:overlay;pointer-events:none;z-index:60}
+</style></head><body><div id="st">
+
+<div class="sc" id="s1"><div class="grad" style="height:560px"></div><div class="sub" id="sub"></div></div>
+
+<div class="sc" id="s2"><div class="bg" style="background:var(--ink)"></div>
+  <div class="h" style="color:var(--paper);width:860px" data-t="13.4">Primero: abrirla por <em>USB.</em></div>
+  <div class="code mono" id="code"></div>
+  <div class="kk" id="k2" style="left:0;top:700px;width:760px;height:950px;-webkit-mask-image:linear-gradient(#000 86%,transparent 99%)"><img id="giro"></div></div>
+
+<div class="sc" id="s3"><div class="grad"></div><div class="hb" data-t="25.0">Mi gran avance: todavía <em data-t="26.9">prendía.</em></div></div>
+
+<div class="sc" id="s4"><div class="bg" style="background:var(--paper)"></div>
+  <div class="h" style="color:var(--ink)" data-t="27.9">Quería una portada <em data-t="30.6">única.</em></div>
+  <div class="kk" id="k4" data-pose="portada" data-w="540" style="left:-78px;top:910px"></div></div>
+
+<div class="sc" id="s5"><div class="bg" style="background:var(--paper)"></div>
+  <div class="h" style="color:var(--ink)" data-t="33.6">Una <em>nueva</em> cada mañana.</div>
+  <div class="kk" id="k5" data-pose="portada" data-w="900" style="left:91px;top:640px"></div></div>
+
+<div class="sc" id="s6"><div class="grad"></div><div class="hb" data-t="42.9">Pero no pasaba de la <em data-t="44.4">portada.</em></div></div>
+
+<div class="sc" id="s7"><div class="bg" style="background:var(--blue)"></div>
+  <div class="h" style="color:var(--paper)" data-t="46.2">Con KOReader ya pasa de <em data-t="48.9">página.</em></div>
+  <div class="kk" id="k7" data-pose="pagina" data-w="800" style="left:-30px;top:690px"></div></div>
+
+<div class="sc" id="s8"><div class="mm"></div>
+  <div class="h" style="color:var(--ink)" data-t="54.0">Lo alimentan mis <em data-t="54.75">newsletters.</em></div><div id="env8"></div></div>
+
+<div class="sc" id="s9"><div class="mm"></div>
+  <div class="h" style="color:var(--ink)" data-t="57.9">De mi Gmail solo pasan <em data-t="63.7">4.</em></div>
+  <div class="mono" style="position:absolute;left:90px;top:700px;font-size:26px;letter-spacing:.12em;color:#5d6472;z-index:4">NEWSLETTERS SIN LEER</div>
+  <div id="env9"></div>
+  <svg style="position:absolute;inset:0;z-index:3" width="1080" height="1920" fill="none" stroke="#0A0A0F" stroke-width="4" id="lin">
+    <path d="M149 852 C149 1090 250 1080 256 1205"/><path d="M569 852 C569 1090 300 1060 292 1205"/>
+    <path d="M289 972 C289 1100 272 1120 274 1205"/><path d="M709 972 C709 1130 330 1090 312 1205"/></svg>
+  <div class="kk" id="k9" data-pose="portada" data-w="420" style="left:75px;top:1143px"></div></div>
+
+<div class="sc" id="s10"><div class="grad"></div><div class="hb" data-t="67.3">La última prueba: dejarla <em data-t="69.4">sola.</em></div></div>
+
+<div class="sc" id="s11"><div class="bg" style="background:var(--ink)"></div>
+  <div class="bg" id="blob" style="left:-200px;top:500px;width:1300px;height:1300px;inset:auto;border-radius:50%"></div>
+  <div class="mono" id="reloj" style="position:absolute;left:90px;top:300px;font-size:150px;font-weight:600;letter-spacing:-.02em;color:var(--paper);z-index:30"></div>
+  <div id="l11" style="position:absolute;left:90px;top:480px;font-size:78px;letter-spacing:-.04em;color:var(--paper);z-index:30"></div>
+  <div class="kk" id="k11" data-pose="noche" data-w="900" style="left:86px;top:573px"></div></div>
+
+<div class="sc" id="s13"><div class="grad"></div><div class="hb" data-t="80.0">El repositorio, en los <em data-t="81.4">comentarios.</em></div></div>
+
+<div id="pw"><img id="pv"></div>
+<div id="marco">Pablo<br>Paredes_</div><div class="mono" id="cont"></div>
+<svg id="grain" width="1080" height="1920"><filter id="nz"><feTurbulence id="turb" type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="1"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#nz)"/></svg>
+</div>
+<script>
+const SP=1.2*(30000/1001/30), FPS=30, DUR=TL.dur/SP, NF=1981, PD='pablo12';
+const $=id=>document.getElementById(id), clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), lerp=(a,b,p)=>a+(b-a)*p, prog=(t,a,b)=>clamp((t-a)/(b-a));
+const eo=p=>1-Math.pow(1-p,3), eio=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+// --- escenas: [id, inicio, layout de cámara, tinta del marco]
+const SC=[['s1',0,'full','p'],['s2',13.31,'bub','p'],['s3',23.90,'full','p'],['s4',27.78,'card','i'],['s5',33.50,'none','i'],['s6',41.89,'full','p'],
+          ['s7',45.21,'bub','p'],['s8',51.79,'card','i'],['s9',57.87,'bub','i'],['s10',67.15,'full','p'],['s11',70.00,'none','p'],['s13',77.46,'full','p']];
+const LAY={full:{b:[0,0,1080,1920,0],i:[0,0,1080]},card:{b:[470,860,520,780,30],i:[0,-37,520]},bub:{b:[721,1072,268,375,30],i:[-52,-44,338]}};
+// --- titulares: cada palabra entra en cascada; las <em> con data-t entran en su momento
+document.querySelectorAll('.h,.hb').forEach(h=>{ const t0=+h.dataset.t; let k=0; const out=[];
+  h.childNodes.forEach(n=>{ if(n.nodeType==3){ n.textContent.split(/(\s+)/).forEach(x=>{ if(!x) return; if(/^\s+$/.test(x)){ out.push(document.createTextNode(' ')); return; }
+        const s=document.createElement('span'); s.className='w'; s.textContent=x; s.dataset.at=t0+0.12*k++; out.push(s); }); }
+    else { n.classList.add('w'); n.dataset.at=n.dataset.t||t0+0.12*k; k++; out.push(n); } });
+  h.replaceChildren(...out); });
+const WS=[...document.querySelectorAll('.w')];
+// --- homografía: rectángulo 600x800 -> 4 esquinas
+function homog(d){ const s=[[0,0],[600,0],[600,800],[0,800]], A=[], B=[];
+  for(let i=0;i<4;i++){ const [x,y]=s[i],[u,v]=d[i]; A.push([x,y,1,0,0,0,-u*x,-u*y]); B.push(u); A.push([0,0,0,x,y,1,-v*x,-v*y]); B.push(v); }
+  for(let c=0;c<8;c++){ let m=c; for(let r=c+1;r<8;r++) if(Math.abs(A[r][c])>Math.abs(A[m][c])) m=r; [A[c],A[m]]=[A[m],A[c]]; [B[c],B[m]]=[B[m],B[c]];
+    for(let r=0;r<8;r++){ if(r==c) continue; const f=A[r][c]/A[c][c]; for(let k=c;k<8;k++) A[r][k]-=f*A[c][k]; B[r]-=f*B[c]; } }
+  const h=B.map((b,i)=>b/A[i][i]); return `matrix3d(${h[0]},${h[3]},0,${h[6]},${h[1]},${h[4]},0,${h[7]},0,0,1,0,${h[2]},${h[5]},0,1)`; }
+// --- Kindles con pantalla intercambiable
+const KD={};
+document.querySelectorAll('.kk[data-pose]').forEach(k=>{ const pose=k.dataset.pose, w=+k.dataset.w, s=w/1600; k.style.width=w+'px'; k.style.height=w*1.25+'px';
+  const base=new Image(); base.src=`assets/k3d/${pose=='noche'?'dormida':pose}.png`; k.appendChild(base);
+  let base2=null; if(pose=='noche'){ base2=new Image(); base2.src='assets/k3d/noche.png'; k.appendChild(base2); }
+  const scr=document.createElement('div'); scr.className='scr'; scr.style.transform=homog(ESQ[pose].map(([x,y])=>[x*s,y*s]));
+  const im=new Image(), fl=document.createElement('div'); fl.className='fl'; scr.append(im,fl); k.appendChild(scr); KD[k.id]={k,base,base2,scr,im,fl,cur:''}; });
+const PRE=['portada_1','portada_2','portada_3','portada_4','pag_2','pag_4'].map(n=>{const i=new Image(); i.src=`assets/${n}.png`; return i});
+function pantalla(id,t,seq,tint='brightness(.9)'){ const K=KD[id]; let i=0; while(i<seq.length-1&&t>=seq[i+1][0]+.1) i++;
+  const src=seq[i][1]; if(src){ const u=`assets/${src}.png`; if(K.cur!=u){ K.im.src=u; K.cur=u; } K.im.style.display='block'; K.im.style.filter=tint; } else K.im.style.display='none';
+  let f='transparent'; for(const [ts] of seq.slice(1)){ const d=t-ts; if(d>=0&&d<.1) f='#111'; else if(d>=.1&&d<.2) f='rgba(235,235,230,.92)'; else if(d>=.2&&d<.3) f=`rgba(20,20,20,${.35*(1-(d-.2)/.1)})`; }
+  K.fl.style.background=f; }
+function pose(id,t,t0,dx=0){ const K=KD[id]||{k:$(id)}, p=eo(prog(t,t0,t0+.5)), d=t-t0;
+  K.k.style.opacity=prog(t,t0,t0+.18); K.k.style.transform=`translate(${dx*d}px,${(1-p)*70-d*2.2}px) rotate(${(1-p)*2.5+d*.11}deg) scale(${1+d*.004})`; }
+// --- sobres
+function sobre(x,y,on){ return `<svg class="env" style="left:${x}px;top:${y}px" width="118" height="84"><rect x="2" y="2" width="114" height="80" rx="7" fill="${on?'#0A0A0F':'#F5F4EF'}" stroke="${on?'#0A0A0F':'#9AA3B2'}" stroke-width="4"/><path d="M4 6 L59 48 L114 6" fill="none" stroke="${on?'#F5F4EF':'#9AA3B2'}" stroke-width="4"/></svg>`; }
+const E8=[], E9=[], OK9=[0,3,7,10];
+for(let r=0;r<4;r++)for(let c=0;c<2;c++) E8.push([110+c*150,900+r*118]);
+for(let r=0;r<2;r++)for(let c=0;c<6;c++) E9.push([90+c*140,770+r*120]);
+$('env8').innerHTML=E8.map(([x,y])=>sobre(x,y,false)).join('');
+$('env9').innerHTML=E9.map(([x,y],i)=>sobre(x,y,false)+(OK9.includes(i)?sobre(x,y,true):'')).join('');
+const N8=[...$('env8').children], N9=[...$('env9').children], LN=[...$('lin').children]; LN.forEach(p=>{ p.L=p.getTotalLength(); p.style.strokeDasharray=p.L; });
+// --- terminal
+const CODE=['$ lsusb','Bus 020 Device 004: Amazon Kindle','$ cat /Volumes/Kindle/system/version.txt','Kindle 5.12.2.2','modelo ........ KT2 · 7.ª generación · 2014','pantalla ...... 600 × 800 · grises','$ buscando jailbreak compatible…','  WinterBreak2 ................. ok','$ instalando KOReader 2026.07.1','  reiniciando .................. ok'];
+// --- subtítulos del gancho
+const FIX={mayanero:'mañanero',The:''}; const SUBS=[]; { let cur=[];
+  for(const w of TL.words){ if(w.t>=13.2) break; const x=(w.w in FIX)?FIX[w.w]:w.w; if(!x) continue; cur.push([x,w.t,w.e]);
+    const len=cur.map(c=>c[0]).join(' ').length; if(cur.length>=3||len>=15||/[,.]$/.test(x)){ SUBS.push(cur); cur=[]; } } if(cur.length) SUBS.push(cur); }
+const esc=s=>s.replace(/&/g,'&amp;');
+
+const CUT0=51.789, DEL=2.188;   // se quitó "Para alimentar el periódico,": los tiempos de las escenas siguen en la línea anterior
+window.render=function(tr){ const tn=tr*SP, C1=55.486, D1=0.612, t=tn<CUT0?tn:tn<C1?tn+DEL:tn+DEL+D1;   // C1/D1: se quitó un "de ahí" repetido
+  let si=0; while(si<SC.length-1&&t>=SC[si+1][1]) si++; const [sid,st,lay,ink]=SC[si];
+  SC.forEach(([id])=>$(id).style.display=id==sid?'block':'none');
+  $('marco').style.color=$('cont').style.color=ink=='p'?'#F5F4EF':'#0A0A0F'; $('cont').textContent=String(si+1).padStart(2,'0')+' / '+SC.length;
+  $('turb').setAttribute('seed',1+Math.floor(t*12)%97);
+  // toma
+  const pw=$('pw'), pv=$('pv');
+  if(lay=='none') pw.style.display='none'; else { const L=LAY[lay]; pw.style.display='block';
+    Object.assign(pw.style,{left:L.b[0]+'px',top:L.b[1]+'px',width:L.b[2]+'px',height:L.b[3]+'px',borderRadius:L.b[4]+'px',
+      boxShadow:lay=='bub'?'0 0 0 2px rgba(245,244,239,.55),0 24px 50px rgba(0,0,0,.45)':lay=='card'?'0 30px 60px rgba(0,0,0,.35)':'none',zIndex:lay=='full'?2:10});
+    Object.assign(pv.style,{left:L.i[0]+'px',top:L.i[1]+'px',width:L.i[2]+'px'});
+    const f=clamp(Math.floor(tr*FPS+1e-6)+1,1,NF), u=`${PD}/f_${String(f).padStart(5,'0')}.jpg`; if(pv.dataset.u!=u){ pv.src=u; pv.dataset.u=u; } }
+  // titulares
+  WS.forEach(w=>{ const p=eo(prog(t,+w.dataset.at,+w.dataset.at+.24)); w.style.opacity=p; w.style.transform=`translateY(${(1-p)*40}px)`; });
+  if(sid=='s1'){ const g=SUBS.find(g=>t>=g[0][1]-.03&&t<g[g.length-1][2]+.12); $('sub').innerHTML=g?g.map(([x,a])=>t>=a-.03?`<em>${esc(x)}</em>`:esc(x)).join(' ').replace(/<em>(.*)<\/em> (?=<em>)/g,'$1 ').replace(/<em>([^<]*)<\/em>(?=.*<em>)/g,'$1'):''; }
+  if(sid=='s2'){ const a=14.2, c=16.5, f=t<a?0:t<a+40/30?Math.floor((t-a)*30):t<c?39:Math.min(57,40+Math.floor((t-c)*30));
+    const g=$('giro'), u=`assets/k3d/giro_${String(clamp(f,0,57)).padStart(3,'0')}.png`; if(g.dataset.u!=u){ g.src=u; g.dataset.u=u; } pose('k2',t,st);
+    const n=clamp(Math.floor((t-18.0)/.5)+1,0,CODE.length), vis=CODE.slice(Math.max(0,n-6),n); $('code').textContent=vis.join('\n')+(n&&Math.floor(t*3)%2?' _':''); }
+  if(sid=='s4'){ pose('k4',t,st+.3); pantalla('k4',t,[[0,'portada_1']]); }
+  if(sid=='s5'){ pose('k5',t,st); pantalla('k5',t,[[0,'portada_1'],[36.15,'portada_2'],[37.9,'portada_3'],[39.45,'portada_4']]); }
+  if(sid=='s7'){ pose('k7',t,st); pantalla('k7',t,[[0,'portada_1'],[48.45,'pag_2'],[49.9,'pag_4']]); }
+  if(sid=='s8'){ N8.forEach((n,i)=>{ const a=54.05+i*.2, p=eo(prog(t,a,a+.25)); n.style.opacity=prog(t,a,a+.1); n.style.transform=`translateY(${(1-p)*30-(t-a)*1.5}px) rotate(${(i%2?1:-1)*(1-p)*6}deg)`; }); }
+  if(sid=='s9'){ let j=0; N9.forEach((n,i)=>{ const on=n.querySelector('rect').getAttribute('fill')=='#0A0A0F';
+      if(!on){ const a=st+.1+(i%13)*.04; n.style.opacity=prog(t,a,a+.15); n.style.transform=`translateY(${-(t-st)*1.2}px)`; }
+      else { const a=63.74+(j++)*.14, p=eo(prog(t,a,a+.2)); n.style.opacity=prog(t,a,a+.06); n.style.transform=`translateY(${-(t-st)*1.2}px) scale(${1+.25*(1-p)*(t>=a?1:0)})`; } });
+    LN.forEach((p,i)=>{ const a=64.5+i*.12; p.style.strokeDashoffset=p.L*(1-eio(prog(t,a,a+.7))); p.style.transform=`translateY(${-(t-st)*1.2}px)`; });
+    pose('k9',t,64.9); pantalla('k9',t,[[0,'portada_1']]); }
+  if(sid=='s11'){ const w=74.03, K=KD.k11, x=eio(prog(t,w,w+.9)); pose('k11',t,st);
+    K.base2.style.opacity=x; pantalla('k11',t,[[0,null],[w,'portada_1']],'brightness(.8) sepia(.28)'); K.im.style.opacity=t>=w+.1?1:0;
+    $('reloj').textContent=t<73.3?'06:00':'08:00'; $('reloj').style.opacity=prog(t,st+.15,st+.3);
+    const tx=t<73.3?['La edición se prepara ','sola.',70.4]:['Se despertó ','sola.',74.0]; const p=eo(prog(t,tx[2],tx[2]+.25));
+    $('l11').innerHTML=`${tx[0]}<span style="color:#FF7A1A">${tx[1]}</span>`; $('l11').style.opacity=p; $('l11').style.transform=`translateY(${(1-p)*40}px)`;
+    $('blob').style.background=`radial-gradient(rgba(${lerp(29,255,x)},${lerp(45,122,x)},${lerp(255,26,x)},${lerp(.22,.16,x)}),rgba(10,10,15,0) 62%)`;
+    $('blob').style.transform=`scale(${1+.03*Math.sin(t*.9)})`; }
+};
+// --- contrato para scripts/verificar.py de la skill
+window.ESTADO=function(tr){ const tn=tr*SP, C1=55.486, D1=0.612, t=tn<CUT0?tn:tn<C1?tn+DEL:tn+DEL+D1; let si=0; while(si<SC.length-1&&t>=SC[si+1][1]) si++;
+  const id=SC[si][0], M={ s2:['oscuro','#s2 .h','#giro'], s4:['claro','#s4 .h','#k4 > img'], s5:['claro','#s5 .h','#k5 > img'], s7:['azul','#s7 .h','#k7 > img'],
+    s8:['claro','#s8 .h','#env8'], s9:['claro','#s9 .h','#env9'], s11:['oscuro','#l11','#k11 > img'] }[id]||['toma',{s3:'#s3 .hb',s6:'#s6 .hb',s10:'#s10 .hb',s13:'#s13 .hb'}[id]||null,null];
+  return {id, camara:{full:'completa',card:'tarjeta',bub:'burbuja',none:'ninguna'}[SC[si][2]], fondo:M[0], titular:M[1], elemento:M[2]}; };
+window.render(0);
+</script></body></html>

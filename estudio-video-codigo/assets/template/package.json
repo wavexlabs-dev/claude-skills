@@ -1,0 +1,27 @@
+{
+  "name": "video-en-codigo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "render": "tsx render/render.ts",
+    "frames": "tsx render/frames.ts",
+    "music": "tsx render/music.ts",
+    "sfx": "tsx render/sfx.ts",
+    "sounds": "tsx render/prep-sounds.ts",
+    "audio-preview": "tsx render/audio-preview.ts",
+    "site-copy": "tsx render/site-copy.ts",
+    "measure": "bash render/measure.sh",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "playwright": "^1.64.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5"
+  }
+}

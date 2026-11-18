@@ -1,0 +1,15 @@
+{
+  "dur": 44, "lufs": -14, "salida": "out/mix.wav",
+  "musica": {"archivo": "audio/music.mp3", "tempo": 0.955, "db": -9},
+  "cues": [
+    {"t": 5.45,  "sonido": "impact", "tipo": "acento", "nota": "acento único: \"circuito.\" cae"},
+    {"t": 7.52,  "sonido": "paper",  "nota": "la hoja de papel entra"},
+    {"t": 8.20,  "sonido": "teclas", "dur": 3.0, "tipo": "chico", "nota": "se escribe el pedido"},
+    {"t": 14.80, "sonido": "plates", "nota": "las cuatro capas se separan"},
+    {"t": 21.82, "sonido": "paper",  "tono": 0.78, "nota": "el papel del antes se barre"},
+    {"t": 26.06, "sonido": "thud",   "nota": "la barra de 25 % asienta"},
+    {"t": 27.46, "sonido": "thud",   "tono": 0.86, "nota": "la barra de 69 % asienta (más grande = más grave)"},
+    {"t": 31.99, "sonido": "knock",  "nota": "el interruptor choca con la pared"},
+    {"t": 34.88, "sonido": "click",  "nota": "la placa asienta"}
+  ]
+}

@@ -1,0 +1,25 @@
+{
+ "dur": 64.85,
+ "lufs": -14,
+ "salida": "out/mix.wav",
+ "musica": {
+  "archivo": "audio/music_loop.wav",
+  "tempo": 1.0,
+  "db": -9
+ },
+ "voz": "out/voz_limpia_g.wav",
+ "cues": [
+  {
+   "t": 18.69,
+   "sonido": "click",
+   "tipo": "chico",
+   "nota": "el cable conecta el Arduino al Jeep en el diagrama"
+  },
+  {
+   "t": 58.14,
+   "sonido": "impact",
+   "tipo": "acento",
+   "nota": "acento único: Y FUNCIONÓ"
+  }
+ ]
+}

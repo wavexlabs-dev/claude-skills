@@ -1,0 +1,32 @@
+{
+ "dur": 66.03,
+ "lufs": -14,
+ "salida": "out/mix12_limpia.wav",
+ "musica": {
+  "archivo": "audio/music_loop.wav",
+  "tempo": 1.0,
+  "db": -9
+ },
+ "voz": "out/voz12_limpia_g.wav",
+ "cues": [
+  {
+   "t": 14.18,
+   "sonido": "click",
+   "tipo": "chico",
+   "nota": "la clavija del cable USB entra al puerto de la Kindle"
+  },
+  {
+   "t": 15.06,
+   "sonido": "teclas",
+   "dur": 1.0,
+   "tipo": "chico",
+   "nota": "se escriben las líneas de la terminal"
+  },
+  {
+   "t": 59.43,
+   "sonido": "impact",
+   "tipo": "acento",
+   "nota": "acento único: la pantalla de la Kindle despierta sola"
+  }
+ ]
+}

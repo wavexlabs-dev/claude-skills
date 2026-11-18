@@ -1,0 +1,19 @@
+[
+  { "out": "tick", "tipo": "tick" },
+  { "out": "tick2", "tipo": "tick", "tono": 0.86, "semilla": 4 },
+  { "out": "click", "tipo": "click" },
+  { "out": "tap", "tipo": "tap" },
+  { "out": "tap2", "tipo": "tap", "tono": 1.18, "semilla": 5 },
+  { "out": "pop", "tipo": "pop" },
+  { "out": "thud", "tipo": "thud" },
+  { "out": "impact", "tipo": "impact" },
+  { "out": "whoosh", "tipo": "whoosh" },
+  { "out": "whoosh2", "tipo": "whoosh", "tono": 0.8, "dur": 1.2, "semilla": 9 },
+  { "out": "swish", "tipo": "swish" },
+  { "out": "breath", "tipo": "breath" },
+  { "out": "paper", "tipo": "paper" },
+  { "out": "pluck", "tipo": "pluck" },
+  { "out": "chime", "tipo": "chime" },
+  { "out": "coin", "tipo": "coin" },
+  { "out": "riser", "tipo": "riser" }
+]

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Prueba C · v2 · sistema de fondos</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* SISTEMA DE FONDOS: cada idea cambia de fondo; nunca el mismo dos veces seguidas.
+       1) PAPER sólido  -> la definición (texto Ink)
+       2) AZUL sólido   -> el objeto / lo que guarda la máquina (recorte B/N + cuadro naranja)
+       3) MURO oscuro   -> el detalle; el azul se queda como plano detrás del recorte
+     Toma horizontal: MITAD y BURBUJA con recortes medidos. Un solo cambio de layout. */
+  :root { --ink:#0A0A0F; --blue:#1D2DFF; --paper:#F5F4EF; --orange:#FF7A1A; --slate:#9AA3B2; --fg:#0A0A0F; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { width:1080px; height:1920px; overflow:hidden; background:var(--ink); }
+  #wall { position:absolute; inset:-40px; background:url(assets/tex_stencil.jpg) center/cover; filter:brightness(.3) contrast(1.1) grayscale(1); }
+  #paperTop { position:absolute; left:0; top:0; width:1080px; height:960px; background:var(--paper); }
+  #plane { position:absolute; background:var(--blue); }
+  #stageWrap { position:absolute; left:0; top:0; width:1080px; overflow:hidden; }
+  #stage { position:absolute; left:0; top:0; width:1080px; height:1920px; transform-origin:400px 1210px; }
+  #sq { position:absolute; left:668px; top:900px; width:44px; height:44px; background:var(--orange); }
+  #cody { position:absolute; left:-40px; top:700px; width:400px; }
+  #sheet { position:absolute; left:150px; top:860px; width:460px; height:670px; }
+  #sheet img { position:absolute; inset:0; width:100%; height:100%; filter:drop-shadow(0 30px 40px rgba(0,0,0,.4)); }
+  #doc { position:absolute; left:54px; top:66px; right:50px; font:600 36px/1 'IBM Plex Mono',monospace; color:var(--ink); }
+  .bar { height:9px; background:var(--ink); opacity:.6; margin-top:20px; transform-origin:0 50%; }
+  .bar.h { height:16px; margin-top:52px; opacity:.95; }
+  .head { position:absolute; left:90px; font:700 150px/.95 'Space Grotesk',sans-serif; letter-spacing:-.04em; white-space:nowrap; }
+  .ln { display:block; } .head em { font-style:normal; color:var(--orange); } .w { display:inline-block; }
+  #pwrap { position:absolute; overflow:hidden; background:#000; }
+  #pablo { position:absolute; max-width:none; }
+  #grain { position:absolute; inset:0; opacity:.14; mix-blend-mode:overlay; pointer-events:none; }
+  .name { position:absolute; left:90px; top:96px; font:700 40px/.95 'Space Grotesk',sans-serif; letter-spacing:-.03em; color:var(--fg); }
+  .count { position:absolute; right:90px; top:104px; font:500 22px/1 'IBM Plex Mono',monospace; letter-spacing:.16em; color:var(--fg); }
+</style>
+</head>
+<body>
+<div id="wall"></div>
+<div id="paperTop"></div>
+<div id="plane"></div>
+<div id="stageWrap"><div id="stage">
+  <div id="sq"></div>
+  <img id="cody" src="assets/cody.png" alt="">
+  <div id="sheet"><img src="assets/paper.png" alt="">
+    <div id="doc">alma.md
+      <div class="bar h" style="width:62%"></div><div class="bar" style="width:92%"></div><div class="bar" style="width:78%"></div>
+      <div class="bar h" style="width:48%"></div><div class="bar" style="width:88%"></div><div class="bar" style="width:70%"></div>
+      <div class="bar h" style="width:56%"></div><div class="bar" style="width:84%"></div><div class="bar" style="width:60%"></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="head" id="h1" style="top:420px;color:var(--ink)"><span class="ln"><span class="w">El</span> <span class="w">alma</span> <span class="w">es</span></span><span class="ln"><span class="w">un</span> <em class="w">archivo.</em></span></div>
+<div class="head" id="h3" style="top:300px;font-size:102px;line-height:1.04;color:var(--paper)">
+  <span class="ln"><span class="w">Cómo</span> <span class="w">actúa.</span></span>
+  <span class="ln"><span class="w">Cómo</span> <span class="w">responde.</span></span>
+  <span class="ln"><span class="w">Cómo</span> <span class="w">se</span> <em class="w">comporta.</em></span>
+</div>
+
+<div id="pwrap"><img id="pablo" alt=""></div>
+<svg id="grain" width="1080" height="1920"><filter id="nz"><feTurbulence id="turb" type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="1"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#nz)"/></svg>
+<div class="name" id="name">Pablo<br>Paredes_</div>
+<div class="count" id="cnt">01 / 03</div>
+
+<script>
+const FPS=30, DUR=15.15, T2=3.42, T3=9.3;
+const $=id=>document.getElementById(id), $$=s=>[...document.querySelectorAll(s)];
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), lerp=(a,b,p)=>a+(b-a)*p;
+const prog=(t,a,b)=>clamp((t-a)/(b-a));
+const eo=p=>1-Math.pow(1-p,3), eio=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+const back=p=>{const c=1.3,c3=c+1;return 1+c3*Math.pow(p-1,3)+c*Math.pow(p-1,2)};
+function rise(el,t,t0,d=.24){const p=eo(prog(t,t0,t0+d));el.style.opacity=p;el.style.transform=`translateY(${(1-p)*40}px)`;}
+function words(id,t,times){$$('#'+id+' .w').forEach((w,i)=>{if(times[i]!=null)rise(w,t,times[i])});}
+
+// layouts de la toma: caja en pantalla + recorte medido (fracciones del cuadro 16:9) + encuadre del escenario
+const L={ split: {x:0,  y:960, w:1080,h:960, r:0,  cx:.1936,cy:0,   cw:.6328,ch:1,     sh:960, sx:140,sy:-690,ss:.74},
+          bubble:{x:721,y:1072,w:268, h:375, r:30, cx:.3355,cy:.006,cw:.3490,ch:.8685, sh:1920,sx:0,  sy:0,   ss:1} };
+const MORPH=.4;
+// plano azul: cubre la mitad superior y luego se encoge a un rectángulo detrás de la hoja
+const PL0={x:0,y:0,w:1080,h:960}, PL1={x:56,y:790,w:470,h:660};
+
+async function render(t){
+  const p=eio(prog(t,T3,T3+MORPH)), lay={}; for(const k in L.split) lay[k]=lerp(L.split[k],L.bubble[k],p);
+  const f=Math.min(455,Math.round(t*FPS)), src='pablo/f_'+String(f).padStart(4,'0')+'.jpg', im=$('pablo');
+  if(!im.src.endsWith(src)){im.src=src; await im.decode().catch(()=>{});}
+  Object.assign($('pwrap').style,{left:lay.x+'px',top:lay.y+'px',width:lay.w+'px',height:lay.h+'px',borderRadius:lay.r+'px',
+    boxShadow:p>0?`0 0 0 ${2*p}px rgba(245,244,239,.55), 0 20px 50px rgba(0,0,0,${.5*p})`:'none'});
+  const iw=lay.w/lay.cw, ih=lay.h/lay.ch;
+  Object.assign(im.style,{width:iw+'px',height:ih+'px',left:(-lay.cx*iw)+'px',top:(-lay.cy*ih)+'px'});
+
+  // fondo 1 (Paper) -> fondo 2 (azul): el azul sube desde la unión como una cortina
+  const wipe=eio(prog(t,T2,T2+.34));
+  const pl={}; for(const k in PL0) pl[k]=lerp(PL0[k],PL1[k],p);
+  if(t<T3){ pl.h=960*wipe; pl.y=960-pl.h; }
+  Object.assign($('plane').style,{left:pl.x+'px',top:pl.y+'px',width:pl.w+'px',height:pl.h+'px'});
+  $('paperTop').style.display=t<T2+.4?'block':'none';
+  $('wall').style.transform=`scale(${1.08-prog(t,T3,DUR)*.05})`;
+
+  // titular 1 sobre Paper; sale antes de que suba el azul
+  words('h1',t,[.05,.12,.49,1.79,2.15]);
+  const out1=eio(prog(t,T2-.3,T2)); $('h1').style.transform=`translateY(${-out1*140}px)`; $('h1').style.opacity=1-out1;
+
+  // escenario (recortes): entra con la cortina azul
+  $('stageWrap').style.height=lerp(960,1920,p)+'px';
+  $('stage').style.transform=`translate(${lay.sx}px,${lay.sy}px) scale(${lay.ss})`;
+  const ps=eo(prog(t,T2+.28,T2+.78));
+  $('stage').style.opacity=prog(t,T2+.28,T2+.38);
+  $('sheet').style.transform=`translateY(${(1-ps)*70-(t-3.5)*2.2}px) rotate(${lerp(-6,-3,ps)+(t-3.5)*.12}deg)`;
+  const pq=prog(t,T2+.7,T2+.9); $('sq').style.transform=`scale(${back(pq)}) translateY(${(t-3.5)*-1.5}px)`; $('sq').style.opacity=pq>0?1:0;
+  const pc=prog(t,7.59,7.95), c=$('cody'); c.style.opacity=pc>0?1:0;
+  c.style.transform=`translate(${(1-back(pc))*130}px,${(1-back(pc))*90}px) rotate(${lerp(-2,-9,eo(pc))}deg)`;
+  const starts=[9.9,10.2,10.5, 12.27,12.5,12.8, 13.77,14.1,14.4];
+  $$('.bar').forEach((b,i)=>{ b.style.transform=`scaleX(${t<T3?1:eo(prog(t,starts[i],starts[i]+.45))})`; });
+
+  // titular 3 sobre el muro
+  $('h3').style.display=t>=T3?'block':'none';
+  words('h3',t,[10.77,11.81,12.27,12.63,13.77,13.93,14.35]);
+
+  // marco: Ink sobre Paper, Paper sobre azul y muro
+  document.documentElement.style.setProperty('--fg',t<T2+.3?'#0A0A0F':'#F5F4EF');
+  $('cnt').textContent='0'+(t<T2?1:t<T3?2:3)+' / 03';
+  $('turb').setAttribute('seed',1+Math.floor(t*12)%9);
+}
+window.render=render;
+</script>
+</body>
+</html>

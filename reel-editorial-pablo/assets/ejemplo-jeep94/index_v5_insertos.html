@@ -1,0 +1,207 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="tl.js"></script><script src="mapa.js"></script><script src="subs.js"></script><script src="ins.js"></script><script src="hairline-kernel.js"></script><script src="altavoz.js"></script>
+<style>
+:root{--ink:#0A0A0F;--blue:#1D2DFF;--paper:#F5F4EF;--orange:#FF7A1A;--slate:#9AA3B2}
+*{margin:0;box-sizing:border-box} body{background:#000;overflow:hidden}
+#st{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Space Grotesk',sans-serif;font-weight:700;background:var(--ink)}
+.sc{position:absolute;inset:0;display:none} .bg{position:absolute;inset:0;z-index:1}
+.mono{font-family:'IBM Plex Mono',monospace;font-weight:500}
+.h{position:absolute;left:90px;top:300px;width:900px;font-size:108px;line-height:.98;letter-spacing:-.04em;z-index:30}
+.hb{position:absolute;left:90px;top:1300px;width:900px;font-size:100px;line-height:.98;letter-spacing:-.04em;color:var(--paper);z-index:30}
+.h em,.hb em,.sub em{font-style:normal;color:var(--orange)} .naranja .h em{color:var(--ink)} .w{display:inline-block;white-space:pre}
+.grad{position:absolute;left:0;right:0;bottom:0;height:900px;background:linear-gradient(rgba(10,10,15,0),rgba(10,10,15,.88) 52%);z-index:20}
+.sub{position:absolute;left:0;right:0;top:1520px;text-align:center;font-size:78px;letter-spacing:-.03em;color:var(--paper);text-shadow:0 4px 24px rgba(0,0,0,.8);z-index:30}
+#marco{position:absolute;left:90px;top:96px;font-size:40px;line-height:1;letter-spacing:-.03em;z-index:40}
+#cont{position:absolute;right:90px;top:104px;font-size:22px;letter-spacing:.16em;z-index:40}
+#pw{position:absolute;overflow:hidden;z-index:10} #pv{position:absolute}
+.el{position:absolute;z-index:5}
+.clip img{display:block;width:100%;height:100%;object-fit:cover;border-radius:22px;box-shadow:0 30px 60px rgba(0,0,0,.4);filter:grayscale(1) contrast(1.12) brightness(1.02)}
+.cred{position:absolute;left:0;top:calc(100% + 16px);font-size:24px;font-weight:600;letter-spacing:.08em;white-space:nowrap}
+.fila{display:flex;align-items:baseline;gap:28px;padding:30px 0;border-top:3px solid rgba(245,244,239,.35);color:var(--paper)}
+.fila b{font-size:58px;letter-spacing:-.03em;width:350px;flex:none} .fila span{font-size:44px;font-weight:500;letter-spacing:-.02em}
+.dot{position:absolute;inset:0;z-index:1;background:var(--orange);background-image:radial-gradient(circle,rgba(10,10,15,.55) 0 6px,transparent 7px);background-size:34px 34px;-webkit-mask-image:linear-gradient(transparent 0 1180px,#000 1320px)} .dotbg{position:absolute;inset:0;z-index:0;background:var(--orange)}
+#grain{position:absolute;inset:0;opacity:.14;mix-blend-mode:overlay;pointer-events:none;z-index:60}
+</style></head><body><div id="st">
+
+<!-- S1 · gancho, Pablo completa -->
+<div class="sc" id="s1"><div class="grad" style="height:640px"></div>
+  <div class="hb" id="h1" data-t="-1" data-paso="0" style="top:1300px">Un tipo usó IA para hackear su Jeep de <em>1994.</em></div><div class="sub" id="sub"></div></div>
+
+<!-- S1b · Muhammad a pantalla completa (su video) mientras Pablo lo presenta -->
+<!-- sM · insertos de Muhammad con su voz, subtitulados (ins.js / insertos.py) -->
+<div class="sc" id="sM"><div class="bg" style="background:var(--ink)"></div>
+  <div class="el" id="vM" style="left:0;top:0;width:1080px;height:1920px;overflow:hidden"><img id="vM_i" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.12) brightness(.98)"></div>
+  <div class="grad" style="height:760px"></div>
+  <div class="sub" id="subM" style="top:1440px;left:90px;right:90px;line-height:1.05"></div>
+  <div class="cred mono" style="left:90px;top:1736px;color:var(--paper);z-index:30">VIDEO: MUHAMMAD ZULALI</div></div>
+
+<div class="sc" id="s1b"><div class="bg" style="background:var(--ink)"></div>
+  <div class="el" id="v1b" style="left:0;top:0;width:1080px;height:1920px;overflow:hidden"><img id="v1b_a" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.12) brightness(.98)"><img id="v1b_b" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.12) brightness(.98)"></div>
+  <div class="grad" style="height:900px"></div>
+  <div class="hb" data-t="7.45" data-paso="0.2">Muhammad Zulali no pasó la <em data-t="9.55">verificación.</em></div>
+  <div class="cred mono" id="cred1b" style="left:90px;top:1736px;color:var(--paper);z-index:30">VIDEO: MUHAMMAD ZULALI</div></div>
+
+<!-- S2 · sin puerto · oscuro · burbuja -->
+<div class="sc" id="s2"><div class="bg" style="background:var(--paper)"></div>
+  <div class="h" data-t="11.45" style="color:var(--ink)">Su Jeep no tenía el puerto de <em>escáner.</em></div>
+  <div class="el clip pega" id="c2" data-clip="jeep" style="left:90px;width:900px;height:506px"><img><div class="cred mono" style="color:var(--ink)">VIDEO: MUHAMMAD ZULALI</div></div></div>
+
+<!-- S3 · Arduino de 3 dólares · naranja · tarjeta -->
+<div class="sc naranja" id="s3"><div class="bg" style="background:var(--orange)"></div>
+  <div class="h" data-t="16.6" style="color:var(--ink)">Un Arduino de <em>3 dólares.</em></div>
+  <svg class="el pega" id="dia" width="360" height="840" viewBox="0 60 360 840" style="left:80px" fill="none" stroke="#0A0A0F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <g id="d_jeep"><path d="M40 120 h230 l30 -50 h-170 l-30 50 M40 120 v60 h280 v-60 h-20"/><circle cx="95" cy="190" r="30"/><circle cx="255" cy="190" r="30"/><path d="M150 72 v48"/></g>
+    <path id="d_c1" d="M180 230 V350"/>
+    <g id="d_ard"><rect x="95" y="360" width="170" height="110" rx="10"/><rect x="135" y="390" width="90" height="50" rx="4"/><path d="M110 360 v-18 M140 360 v-18 M170 360 v-18 M200 360 v-18 M230 360 v-18 M250 360 v-18"/><text x="180" y="525" text-anchor="middle" font-family="IBM Plex Mono" font-size="34" font-weight="600" fill="#0A0A0F" stroke="none">ARDUINO</text></g>
+    <path id="d_c2" d="M180 560 V660"/>
+    <g id="d_lap"><rect x="70" y="670" width="220" height="140" rx="10"/><path d="M40 830 h280 l-20 -20 h-240 z"/></g>
+  </svg></div>
+
+<!-- S4 · Claude lee el motor · azul · burbuja -->
+<div class="sc" id="s4"><div class="bg" style="background:var(--blue)"></div>
+  <div class="h" data-t="24.86" data-paso="0" style="color:var(--paper)">Claude leía los datos <em>en vivo.</em></div>
+  <div class="el clip pega" id="c4" data-clip="terminal" style="left:90px;width:900px;height:420px"><img><div class="cred mono" style="color:var(--paper)">VIDEO: MUHAMMAD ZULALI</div></div></div>
+
+<!-- S5 · el escáner al revés · oscuro · tarjeta -->
+<div class="sc naranja" id="s5"><div class="bg" style="background:var(--orange)"></div>
+  <div class="h" data-t="28.2" style="color:var(--ink)">El escáner leía al <em>revés.</em></div>
+  <div class="el pega" id="med" style="left:90px;width:360px;color:var(--ink)">
+    <div class="mono" style="font-size:24px;font-weight:600;letter-spacing:.12em">EL ESCÁNER DECÍA</div>
+    <div id="m_mas" style="position:relative;font-size:150px;letter-spacing:-.05em;line-height:1.05">+22%<div id="m_raya" style="position:absolute;left:-6px;top:52%;height:12px;background:var(--ink);width:0"></div></div>
+    <div class="mono" id="m_lbl2" style="font-size:24px;font-weight:600;letter-spacing:.12em;margin-top:70px">EN REALIDAD</div>
+    <div id="m_menos" style="font-size:96px;letter-spacing:-.05em;line-height:1.05;color:var(--ink);text-decoration:underline;text-decoration-thickness:10px;text-underline-offset:14px">quitaba</div>
+    <div style="font-size:44px;font-weight:500;letter-spacing:-.02em;margin-top:6px" id="m_lbl3">gasolina.</div></div></div>
+
+<!-- S6 · le faltaba un circuito · Pablo completa -->
+<div class="sc" id="s6"><div class="grad"></div><div class="hb" data-t="34.6">Le faltaba un <em>circuito.</em></div></div>
+
+<!-- S7 · entra Codex · claro · burbuja -->
+<div class="sc" id="s7"><div class="bg" style="background:var(--paper)"></div>
+  <div class="h" data-t="39.85" style="color:var(--ink)">Entonces entró <em>Codex.</em></div>
+  <div class="el clip pega" id="c7" data-clip="placa" style="left:90px;width:350px;height:520px"><img><div class="cred mono" style="color:var(--ink)">VIDEO: MUHAMMAD ZULALI</div></div></div>
+
+<!-- S8 · esta vez sí pasó · trama de puntos · tarjeta -->
+<div class="sc naranja" id="s8"><div class="dotbg"></div><div class="dot"></div>
+  <div class="h" data-t="44.45" style="color:var(--ink)">Esta vez sí <em>pasó.</em></div>
+  <div class="el clip pega" id="c8" data-clip="paso" style="left:90px;width:350px;height:520px"><img><div class="cred mono" style="color:var(--ink)">VIDEO: MUHAMMAD ZULALI</div></div></div>
+
+<!-- S9 · cómo se repartieron el trabajo · foto a sangre · sin cámara -->
+<div class="sc" id="s9"><div class="bg" id="bg9" style="background:url(assets/clips/jeep/c_060.jpg) center/cover;filter:grayscale(1) brightness(.24) contrast(1.1)"></div>
+  <div class="h" data-t="48.65" style="color:var(--paper)">Cada quien hizo <em>su parte.</em></div>
+  <div class="el pega" id="roles" style="left:90px;width:900px">
+    <div class="fila" data-t="48.95"><b>Muhammad</b><span>los cables y el manejo</span></div>
+    <div class="fila" data-t="50.2"><b>Claude</b><span>casi todo el diagnóstico</span></div>
+    <div class="fila" data-t="53.45"><b style="color:var(--orange)">Codex</b><span>el código en el Jeep</span></div></div>
+  <div class="mono" style="position:absolute;left:90px;top:1590px;font-size:24px;font-weight:600;letter-spacing:.08em;color:var(--paper);z-index:6">VIDEO: MUHAMMAD ZULALI</div></div>
+
+<!-- S10a · prendió la bomba · azul · tarjeta -->
+<div class="sc" id="s10"><div class="bg" style="background:var(--blue)"></div>
+  <div class="h" data-t="55.95" style="color:var(--paper)">Si pudo con un Jeep de <em>1994…</em></div>
+  <div class="el clip pega" id="c10" data-clip="bomba" style="left:90px;width:350px;height:520px"><img><div class="cred mono" style="color:var(--paper)">VIDEO: MUHAMMAD ZULALI</div></div></div>
+
+<!-- S10b · ¿y si diseñara algo desde cero? · Pablo completa -->
+<div class="sc" id="s11"><div class="grad"></div><div class="hb" data-t="58.65">¿Y si diseñara algo <em>desde cero?</em></div></div>
+
+<!-- S11a · Anthropic: el altavoz · claro · burbuja -->
+<div class="sc" id="s12"><div class="bg" style="background:var(--paper)"></div>
+  <div class="h" data-t="61.4" style="color:var(--ink)">Anthropic ya lo <em>probó.</em></div>
+  <div class="el clip pega" id="foto12" style="left:90px;width:900px;height:600px"><img id="img12" src="assets/anthropic_aparatos.jpg" style="object-position:60% 70%;transform-origin:72% 80%"><div class="cred mono" style="color:var(--ink)">FOTO: ANTHROPIC · NOV 2026</div></div></div>
+
+<!-- S11b · piezas, placa, carcasa, código · naranja · sin cámara -->
+<div class="sc naranja" id="s13"><div class="bg" style="background:var(--orange)"></div>
+  <div class="h" data-t="66.3" style="color:var(--ink);text-align:center">Claude diseñó el <em>altavoz.</em></div>
+  <div class="el pega" id="lista" style="left:90px;width:900px;height:900px;color:var(--ink)">
+    <svg id="alta" width="600" height="900" viewBox="0 0 400 600" style="position:absolute;left:150px;top:-10px;overflow:visible"></svg>
+    <div id="paso" style="position:absolute;left:0;width:900px;text-align:center;font-size:112px;letter-spacing:-.04em;line-height:1">
+      <span data-a="66.62">Piezas</span><span data-a="67.4">Placa</span><span data-a="68.1">Carcasa</span><span data-a="69.6">Código</span><span data-a="72.1">Y funcionó.</span></div>
+    <div class="mono" id="fuente13" style="position:absolute;left:0;width:900px;text-align:center;top:860px;font-size:24px;font-weight:600;letter-spacing:.08em">FUENTE: ANTHROPIC · NOV 2026</div></div></div>
+
+<!-- S12 · comenta hardware · Pablo completa -->
+<div class="sc" id="s14"><div class="grad"></div><div class="hb" data-t="72.8">Comenta <em>hardware.</em></div></div>
+
+<div id="pw"><img id="pv"></div>
+<div id="marco">Pablo<br>Paredes_</div><div class="mono" id="cont"></div>
+<svg id="grain" width="1080" height="1920"><filter id="nz"><feTurbulence id="turb" type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="1"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#nz)"/></svg>
+</div>
+<script>
+const FPS=30, NF=1949, DUR=TL.dur+window.INS.reduce((a,I)=>a+I.d,0);
+// Los tiempos escritos en esta página están en la línea del primer corte (work/tl_v1.js).
+// MAPA (de prep.py) ancla cada palabra del corte actual a su tiempo en esa línea; T convierte por tramos.
+const T=tn=>{ const M=window.MAPA; let k=0; while(k<M.length-2&&tn>=M[k+1][0]) k++; const [a0,b0]=M[k],[a1,b1]=M[k+1];
+  return (a1-a0>0.6&&b1-b0>(a1-a0)+0.3) ? b0+(tn-a0) : b0+(b1-b0)*clamp((tn-a0)/Math.max(a1-a0,1e-6)); };
+const $=id=>document.getElementById(id), clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), lerp=(a,b,p)=>a+(b-a)*p, prog=(t,a,b)=>clamp((t-a)/(b-a));
+const eo=p=>1-Math.pow(1-p,3), eio=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+// [id, inicio, cámara, tinta del marco, familia de fondo, selector del elemento]
+const SC=[['s1',0,'full','p','toma',null],['s1b',6.755,'none','p','video','#v1b'],['s2',11.373,'bub','i','claro','#c2'],['s3',16.48,'card','i','naranja','#dia'],['s4',24.843,'bub','p','azul','#c4'],
+  ['s6',34.522,'full','p','toma',null],['s7',39.777,'card','i','claro','#c7'],['s8',44.407,'card','i','patron','#c8'],
+  ['s9',48.55,'none','p','foto','#roles'],['s10',55.882,'card','p','azul','#c10'],['s11',58.62,'full','p','toma',null],['s12',61.312,'none','i','claro','#foto12'],
+  ['s13',66.3,'none','i','naranja','#lista'],['s14',72.707,'full','p','toma',null]];
+const LAY={full:{b:[0,0,1080,1920,0],i:[0,0,1080]},card:{b:[470,860,520,780,30],i:[0,-60,520]},bub:{b:[721,1072,268,375,30],i:[0,-40,268]}};
+// titulares: cascada por palabra; <em data-t> entra con su palabra
+document.querySelectorAll('.h,.hb').forEach(h=>{ const t0=+h.dataset.t, pas=h.dataset.paso!=null?+h.dataset.paso:0.11; let k=0; const out=[];
+  h.childNodes.forEach(n=>{ if(n.nodeType==3){ n.textContent.split(/(\s+)/).forEach(x=>{ if(!x) return; if(/^\s+$/.test(x)){ out.push(document.createTextNode(' ')); return; }
+        const s=document.createElement('span'); s.className='w'; s.textContent=x; s.dataset.at=t0+pas*k++; out.push(s); }); }
+    else { n.classList.add('w'); n.dataset.at=n.dataset.t||t0+pas*k; k++; out.push(n); } });
+  h.replaceChildren(...out); });
+const WS=[...document.querySelectorAll('.w')], FT=[...document.querySelectorAll('.fila')]; const PASO=[...document.querySelectorAll('#paso>span')]; ALT.init(document.getElementById('alta'));
+// el elemento se pega al titular: 110 px bajo su última línea (regla 11 de la skill)
+// pega el elemento de la escena visible a 118 px bajo su titular; se mide en cada cuadro (la tipografía puede cambiar el número de líneas)
+function pegar(sc){ const h=sc.querySelector('.h'), e=sc.querySelector('.pega'); if(!h||!e) return; e.style.top=(h.offsetTop+h.offsetHeight+118)+'px'; }
+// clips de Muhammad: corren a velocidad real desde que entra la escena; al terminar, el último cuadro deriva
+const NCL={intro_a:72,intro_b:62,jeep:81,terminal:78,placa:78,paso:55,bomba:78};
+function clip(el,t,t0){ const k=el.dataset.clip; if(!k) return; const n=NCL[k], f=clamp(1+Math.floor((t-t0)*30),1,n), u=`assets/clips/${k}/c_${String(f).padStart(3,'0')}.jpg`, im=el.querySelector('img');
+  if(im.dataset.u!=u){ im.src=u; im.dataset.u=u; } const extra=Math.max(0,(t-t0)-n/30); im.style.transform=`scale(${1+extra*.018})`; }
+function entra(el,t,t0,dy=70){ const p=eo(prog(t,t0,t0+.5)), d=t-t0; el.style.opacity=prog(t,t0,t0+.18); el.style.transform=`translateY(${(1-p)*dy-d*2.2}px) rotate(${(1-p)*2+d*.06}deg)`; }
+// subtítulos del gancho: palabras de la voz final (subs.js, línea final), bloques de 2–3, después del titular de portada
+const SUBS=[]; { let cur=[];
+  for(const [x,a,e] of window.PAL){ if(a<2.6) continue; if(a>=10.25) break; cur.push([x,a,e]);
+    if(cur.length>=3||cur.map(c=>c[0]).join(' ').length>=15||/[,.?]$/.test(x)){ SUBS.push(cur); cur=[]; } } if(cur.length) SUBS.push(cur); }
+const esc=s=>s.replace(/&/g,'&amp;');
+
+const ESTADOP=function(tn){ const t=T(tn); let si=0; while(si<SC.length-1&&t>=SC[si+1][1]) si++; const s=SC[si];
+  return {id:s[0], camara:{full:'completa',card:'tarjeta',bub:'burbuja',none:'ninguna'}[s[2]], fondo:s[4], titular:`#${s[0]} .h, #${s[0]} .hb`.split(',').find(q=>document.querySelector(q.trim()))?.trim()||null, elemento:s[5]}; };
+
+const renderP=function(tn){ const t=T(tn); $('sM').style.display='none';
+  let si=0; while(si<SC.length-1&&t>=SC[si+1][1]) si++; const [sid,st,lay,ink]=SC[si];
+  SC.forEach(([id])=>$(id).style.display=id==sid?'block':'none');
+  pegar($(sid));
+  $('marco').style.color=$('cont').style.color=ink=='p'?'#F5F4EF':'#0A0A0F'; $('cont').textContent=String(si+1).padStart(2,'0')+' / '+SC.length;
+  $('turb').setAttribute('seed',1+Math.floor(t*12)%97);
+  const pw=$('pw'), pv=$('pv');
+  if(lay=='none') pw.style.display='none'; else { const L=LAY[lay]; pw.style.display='block';
+    Object.assign(pw.style,{left:L.b[0]+'px',top:L.b[1]+'px',width:L.b[2]+'px',height:L.b[3]+'px',borderRadius:L.b[4]+'px',
+      boxShadow:lay=='bub'?'0 0 0 2px rgba(245,244,239,.55),0 24px 50px rgba(0,0,0,.45)':lay=='card'?'0 30px 60px rgba(0,0,0,.35)':'none',zIndex:lay=='full'?2:10});
+    Object.assign(pv.style,{left:L.i[0]+'px',top:L.i[1]+'px',width:L.i[2]+'px'});
+    const f=clamp(Math.floor(tn*FPS+1e-6)+1,1,NF), u=`pablo/f_${String(f).padStart(5,'0')}.jpg`; if(pv.dataset.u!=u){ pv.src=u; pv.dataset.u=u; } }
+  WS.forEach(w=>{ const p=eo(prog(t,+w.dataset.at,+w.dataset.at+.24)); w.style.opacity=p; w.style.transform=`translateY(${(1-p)*40}px)`; });
+  FT.forEach(r=>{ const a=+r.dataset.t, p=eo(prog(t,a,a+.3)); r.style.opacity=p; r.style.transform=`translateX(${(1-p)*-40}px)`; });
+  const sc=$(sid), el=sc.querySelector('.el'); if(el){ entra(el,t,st+.2); if(el.classList.contains('clip')) clip(el,t,st+.2); }
+  if(sid=='s1'){ $('h1').style.opacity=1-prog(tn,2.45,2.7);
+    const g=SUBS.find(g=>tn>=g[0][1]-.03&&tn<g[g.length-1][2]+.12); $('sub').innerHTML=(tn>=2.7&&g)?g.map(([x,a])=>tn>=a-.03?`<em>${esc(x)}</em>`:esc(x)).join(' ').replace(/<em>([^<]*)<\/em>(?=.*<em>)/g,'$1'):''; }
+  if(sid=='s1b'){ const cut=9.2, a=t<cut, k=a?'intro_a':'intro_b', t0=a?st:cut, n=NCL[k], f=clamp(1+Math.floor((t-t0)*30),1,n);
+    $('v1b').style.opacity=1; $('v1b').style.transform='none';
+    const im=$(a?'v1b_a':'v1b_b'), u=`assets/clips/${k}/c_${String(f).padStart(3,'0')}.jpg`; if(im.dataset.u!=u){ im.src=u; im.dataset.u=u; }
+    $('v1b_a').style.opacity=a?1:0; $('v1b_b').style.opacity=a?0:1; im.style.transform=`scale(${1.02+(t-t0)*.012})`; }
+  if(sid=='s3'){ const D=[['d_jeep',16.7],['d_c1',22.6],['d_ard',18.9],['d_c2',23.1],['d_lap',23.6]];
+    D.forEach(([id,a])=>{ const e=$(id); e.style.opacity=prog(t,a,a+.25); });
+    ['d_c1','d_c2'].forEach((id,i)=>{ const e=$(id), L=e.getTotalLength(), a=[22.6,23.1][i]; e.style.strokeDasharray=L; e.style.strokeDashoffset=L*(1-eio(prog(t,a,a+.45))); e.style.opacity=1; }); }
+  if(sid=='s5'){ $('m_raya').style.width=lerp(0,370,eio(prog(t,32.6,33.1)))+'px'; const q=prog(t,33.6,33.9); ['m_lbl2','m_menos','m_lbl3'].forEach(i=>$(i).style.opacity=q); $('m_menos').style.transform=`translateY(${(1-eo(q))*30}px)`; }
+  if(sid=='s13'){ const b=ALT.draw(t), pz=$('paso');
+    if(b!=null){ pz.style.top=(b*1.5-10+90)+'px'; $('fuente13').style.top=(b*1.5-10+90+190)+'px'; }                                  // 70 px bajo el borde inferior de la figura (viewBox x1.5)
+    PASO.forEach((e,k)=>{ const a=+e.dataset.a, nx=PASO[k+1]?+PASO[k+1].dataset.a:1e9, pi=eo(prog(t,a,a+.28)), po=prog(t,nx-.08,nx+.04);
+      e.style.position='absolute'; e.style.left='0'; e.style.width='100%'; e.style.opacity=pi*(1-po); e.style.transform=`translateY(${(1-pi)*36-po*24}px)`; }); }
+  if(sid=='s12'){ $('img12').style.transform=`scale(${1+(t-st)*.035})`; }
+  if(sid=='s9'){ $('bg9').style.transform=`scale(${1.06+(t-st)*.03}) translateX(${-(t-st)*14}px)`; $('roles').style.transformOrigin='0 0'; $('roles').style.transform=`scale(${1+(t-st)*.008})`; }
+};
+// línea final con insertos: tf -> inserto activo, o tiempo de Pablo (tp) restando los insertos ya pasados
+function ubica(tf){ let off=0; for(const I of window.INS){ if(tf<I.tp+off) break; if(tf<I.tp+off+I.d) return {I,u:tf-(I.tp+off)}; off+=I.d; } return {tp:tf-off}; }
+window.ESTADO=function(tf){ const r=ubica(tf); return r.I?{id:'sM',camara:'ninguna',fondo:'video',titular:'#subM',elemento:'#vM'}:ESTADOP(r.tp); };
+window.render=function(tf){ const r=ubica(tf); if(!r.I) return renderP(r.tp);
+  const {I,u}=r; SC.forEach(([id])=>$(id).style.display='none'); $('sM').style.display='block'; $('pw').style.display='none';
+  $('marco').style.color=$('cont').style.color='#F5F4EF'; $('turb').setAttribute('seed',1+Math.floor(tf*12)%97);
+  const f=clamp(1+Math.floor(u*30),1,I.n), src=`assets/clips/${I.id}/c_${String(f).padStart(3,'0')}.jpg`, im=$('vM_i'); if(im.dataset.u!=src){ im.src=src; im.dataset.u=src; }
+  im.style.transform=`scale(${1.02+u*.012})`;
+  const g=I.subs.filter(([,a])=>u>=a-.05).pop(); $('subM').innerHTML=g?esc(g[0]):''; };
+window.render(0);
+</script></body></html>

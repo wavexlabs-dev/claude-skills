@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Explainer · v3 (ronda del crítico)</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="hairline-kernel.js"></script>
+<style>
+  /* Explainer sin cámara, 44 s, 9 escenas. v3 corrige lo que encontró el crítico:
+     portada fija, foto sin rótulos, pedido legible, titular que sí describe la imagen, antes/después claro,
+     salvedad de la prueba a tamaño legible, figura isométrica con placa y carcasa distinguibles, créditos en zona segura. */
+  :root { --ink:#0A0A0F; --blue:#1D2DFF; --paper:#F5F4EF; --orange:#FF7A1A; --slate:#9AA3B2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { width:1080px; height:1920px; overflow:hidden; background:var(--ink); }
+  .scene { position:absolute; inset:0; overflow:hidden; display:none; color:var(--paper); }
+  .scene.light { color:var(--ink); }
+  .bgimg { position:absolute; inset:-40px; background-size:cover; background-position:center; filter:brightness(.26) contrast(1.1) grayscale(1); }
+  .head { position:absolute; left:90px; top:300px; font:700 104px/1 'Space Grotesk',sans-serif; letter-spacing:-.04em; white-space:nowrap; }
+  .ln { display:block; } .head em { font-style:normal; color:var(--orange); } .w { display:inline-block; }
+  .sub { position:absolute; left:90px; font:500 34px/1.3 'Space Grotesk',sans-serif; letter-spacing:-.01em; }
+  .name { position:absolute; left:90px; top:96px; font:700 40px/.95 'Space Grotesk',sans-serif; letter-spacing:-.03em; }
+  .count { position:absolute; right:90px; top:104px; font:500 22px/1 'IBM Plex Mono',monospace; letter-spacing:.16em; }
+  .credit { position:absolute; left:90px; top:1584px; font:500 22px/1.4 'IBM Plex Mono',monospace; letter-spacing:.06em; text-transform:uppercase; opacity:.8; }
+  .abs { position:absolute; }
+  #grain { position:absolute; inset:0; opacity:.14; mix-blend-mode:overlay; pointer-events:none; }
+  /* S1 */
+  #band { position:absolute; left:0; top:640px; width:1080px; height:800px; overflow:hidden; }
+  #band img { width:100%; height:100%; object-fit:cover; }
+  /* S3 */
+  #sheet { position:absolute; left:210px; top:740px; width:640px; height:860px; }
+  #sheet img { position:absolute; inset:0; width:100%; height:100%; filter:drop-shadow(0 30px 40px rgba(0,0,0,.4)); }
+  #prompt { position:absolute; left:76px; top:104px; right:70px; font:500 45px/1.4 'IBM Plex Mono',monospace; color:var(--ink); }
+  #caret { display:inline-block; width:22px; height:44px; background:var(--orange); vertical-align:-7px; margin-left:4px; }
+  /* S4 */
+  #grid { position:absolute; inset:0; background-image:linear-gradient(rgba(245,244,239,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(245,244,239,.09) 1px,transparent 1px); background-size:90px 90px; background-position:0 30px; }
+  #stack { position:absolute; left:540px; top:1130px; width:0; height:0; transform-style:preserve-3d; }
+  #stack img { position:absolute; left:-340px; top:-340px; width:680px; height:680px; }
+  /* S5 */
+  #tile { position:absolute; left:170px; top:760px; width:740px; height:740px; overflow:hidden; background:#fff; }
+  #tile img { position:absolute; inset:0; width:100%; height:100%; }
+  #scan5 { position:absolute; top:0; bottom:0; width:14px; background:var(--orange); }
+  /* S6 */
+  .barrow { position:absolute; left:90px; right:90px; }
+  .bar { height:110px; transform-origin:0 50%; }
+  .pct { position:absolute; right:0; top:44px; font:700 170px/1 'Space Grotesk',sans-serif; letter-spacing:-.05em; }
+  /* S7 · figura isométrica: placa en Paper grueso, carcasa en Slate fino, un solo trazo naranja */
+  #hl { position:absolute; left:-70px; top:640px; width:1220px; height:976px; overflow:visible; }
+  #hl path { fill:var(--ink); stroke:var(--slate); stroke-width:2.5px; vector-effect:non-scaling-stroke; stroke-linejoin:round; stroke-linecap:round; }
+  #hl .nf { fill:none; } #hl .fo { stroke:none; }
+  #hl .sil { stroke:var(--slate); } #hl .lo { stroke:rgba(154,163,178,.45); }
+  #hl .brd { stroke:var(--paper); stroke-width:5px; fill:#16161d; } #hl .brd2 { stroke:rgba(245,244,239,.55); stroke-width:2.5px; fill:none; }
+  #hl .hi { stroke:var(--orange); stroke-width:5px; fill:#16161d; } #hl .dash { stroke-dasharray:3 10; }
+</style>
+</head>
+<body>
+
+<!-- S1 · foto a sangre sobre Ink · gancho y portada -->
+<div class="scene" id="s1" style="background:var(--ink)">
+  <div id="band"><img src="assets/devices.jpg" alt=""></div>
+  <div class="head" style="font-size:96px"><span class="ln">Una IA diseñó</span><span class="ln">estos tres <em id="apar">aparatos.</em></span></div>
+  <div class="credit">Imágenes: Anthropic / Diode Computers</div>
+</div>
+
+<!-- S2 · naranja sólido · golpe -->
+<div class="scene light" id="s2" style="background:var(--orange)">
+  <div class="head" style="top:700px;font-size:128px"><span class="ln"><span class="w">Funcionaron</span></span><span class="ln"><span class="w">sin</span> <span class="w">corregir</span></span><span class="ln"><span class="w">el</span> <span class="w" id="circ">circuito.</span></span></div>
+</div>
+
+<!-- S3 · azul sólido · el pedido -->
+<div class="scene" id="s3" style="background:var(--blue)">
+  <div id="sheet"><img src="assets/paper.png" alt=""><div id="prompt"><span id="ptxt"></span><span id="caret"></span></div></div>
+  <div class="head"><span class="ln"><span class="w">Todo</span> <span class="w">empezó</span></span><span class="ln"><span class="w">con</span> <span class="w">una</span> <em class="w">frase.</em></span></div>
+</div>
+
+<!-- S4 · Ink + retícula · la placa -->
+<div class="scene" id="s4" style="background:var(--ink)">
+  <div id="grid"></div>
+  <div id="stack"><img src="assets/sp_l4.png" alt=""><img src="assets/sp_l3.png" alt=""><img src="assets/sp_l2.png" alt=""><img src="assets/sp_l1.png" alt=""></div>
+  <div class="head" style="font-size:86px"><span class="ln"><span class="w">Diseñó</span> <span class="w">la</span> <span class="w">placa</span></span><span class="ln"><span class="w">completa:</span></span><span class="ln"><em class="w">cuatro</em> <em class="w">capas</em> <span class="w">de</span> <span class="w">cobre.</span></span></div>
+  <div class="credit">Imágenes: Anthropic / Diode Computers</div>
+</div>
+
+<!-- S5 · muro oscuro · se corrige -->
+<div class="scene" id="s5" style="background:var(--ink)">
+  <div class="bgimg" id="wall5" style="background-image:url(assets/wall_a.jpg)"></div>
+  <div id="tile"><img src="assets/mic_a.jpg" alt=""><img id="micb" src="assets/mic_b.jpg" alt=""><div id="scan5"></div></div>
+  <div class="sub" id="lab5" style="top:1520px;font-size:44px;font-weight:700"></div>
+  <div class="head" style="font-size:88px"><span class="ln"><span class="w">Si</span> <span class="w">algo</span> <span class="w">no</span> <span class="w">salía,</span></span><span class="ln"><span class="w">lo</span> <span class="w">borraba</span> <span class="w">y</span></span><span class="ln"><span class="w">empezaba</span> <em class="w">de</em> <em class="w">nuevo.</em></span></div>
+  <div class="credit" style="top:1598px">Imágenes: Anthropic / Diode Computers</div>
+</div>
+
+<!-- S6 · Paper sólido · el dato -->
+<div class="scene light" id="s6" style="background:var(--paper)">
+  <div class="head" style="font-size:84px"><span class="ln"><span class="w">En</span> <span class="w">la</span> <span class="w">prueba</span> <span class="w">de</span> <span class="w">Diode,</span></span><span class="ln"><span class="w">casi</span> <span class="w">triplicó</span> <span class="w">al</span></span><span class="ln"><span class="w">modelo</span> <span class="w">anterior.</span></span></div>
+  <div class="barrow" style="top:800px"><div class="sub" style="position:static;margin-bottom:16px">Modelo anterior (Fable 5)</div><div class="bar" id="b1" style="width:14.5%;background:var(--ink)"></div><div class="pct" id="p1">25%</div></div>
+  <div class="barrow" style="top:1110px"><div class="sub" style="position:static;margin-bottom:16px">Claude Fable 5.2</div><div class="bar" id="b2" style="width:40%;background:var(--orange)"></div><div class="pct" id="p2">69%</div></div>
+  <div class="sub" id="foot6" style="top:1450px;font-size:30px;opacity:.85">PCB Gym: prueba interna de Diode Computers,<br>socio comercial de Anthropic.</div>
+</div>
+
+<!-- S7 · Ink + figura isométrica · el detalle -->
+<div class="scene" id="s7" style="background:var(--ink)">
+  <svg id="hl" viewBox="0 0 400 320"></svg>
+  <div class="head" style="font-size:96px"><span class="ln"><span class="w">Notó</span> <span class="w">que</span> <span class="w">la</span> <span class="w">placa</span></span><span class="ln"><span class="w">solo</span> <span class="w">entra</span> <span class="w">inclinada</span></span><span class="ln"><em class="w">unos</em> <em class="w">25°.</em></span></div>
+</div>
+
+<!-- S8 · muro oscuro · límites -->
+<div class="scene" id="s8" style="background:var(--ink)">
+  <div class="bgimg" id="wall8" style="background-image:url(assets/wall_b.jpg)"></div>
+  <div class="head" style="top:640px;font-size:98px"><span class="ln"><span class="w">Siguen</span> <span class="w">siendo</span></span><span class="ln"><em class="w">prototipos:</em></span><span class="ln"><span class="w">sin</span> <span class="w">certificar</span> <span class="w">y</span></span><span class="ln"><span class="w">armados</span> <span class="w">por</span></span><span class="ln"><span class="w">humanos.</span></span></div>
+</div>
+
+<!-- S9 · Paper sólido · cierre -->
+<div class="scene light" id="s9" style="background:var(--paper)">
+  <div class="head" style="top:620px;font-size:118px"><span class="ln"><span class="w">Tres</span> <span class="w">aparatos.</span></span><span class="ln"><span class="w">Una</span> <span class="w">frase.</span></span><span class="ln"><em class="w">Funcionaron.</em></span></div>
+  <div class="sub" id="src9" style="top:1060px">Fuente: Anthropic × Diode Computers, 9 nov 2026.<br>El artículo completo está en anthropic.com/research</div>
+</div>
+
+<svg id="grain" width="1080" height="1920"><filter id="nz"><feTurbulence id="turb" type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="1"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#nz)"/></svg>
+
+<script>
+const FPS=30, DUR=44;
+const S=[0,4.4,7.2,13.6,18.8,24.6,29.8,35.8,40.4,DUR];      // inicio de cada escena (v3)
+const $=id=>document.getElementById(id), $$=s=>[...document.querySelectorAll(s)];
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), lerp=(a,b,p)=>a+(b-a)*p;
+const prog=(t,a,b)=>clamp((t-a)/(b-a));
+const eo=p=>1-Math.pow(1-p,3), eio=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+function rise(el,t,t0,d=.26){const p=eo(prog(t,t0,t0+d));el.style.opacity=p;el.style.transform=`translateY(${(1-p)*40}px)`;}
+function words(sc,t,t0,gap=.11){$$('#'+sc+' .head .w').forEach((w,i)=>rise(w,t,t0+i*gap));}
+$$('.scene').forEach((sc,i)=>{ sc.insertAdjacentHTML('beforeend',`<div class="name">Pablo<br>Paredes_</div><div class="count">0${i+1} / 09</div>`); });
+
+const PROMPT='Un disco que se conecta por USB-C, con micrófonos, bocina y Bluetooth con antena en la placa.';
+const CURT=.36;
+function curtain(el,i,t){ const p=eio(prog(t,S[i],S[i]+CURT)); if(i===0){el.style.clipPath='none';return;}
+  el.style.clipPath = i%2 ? `inset(${(1-p)*100}% 0 0 0)` : `inset(0 0 0 ${(1-p)*100}%)`; }
+
+// ---------- FIGURA ISOMÉTRICA (geometría del motor Hairline, sin tocarlo; la mueve el tiempo) ----------
+const {Cam,fit,proj,facing,circ,ringAt,run,hull,poly,rrect}=HL, hopen=HL.open;
+const HR=70,HRi=63,HWH=30,HRb=57,HTK=2.6, rd=a=>a*Math.PI/180;
+const HC=Cam(45,.5,1.86); fit(HC,[[-HR,-HR,0],[HR,HR,0],[-HR,-HR,100],[HR,HR,100]],200,170);
+const HP=proj(HC), hfront=facing(HC);
+const hOuter=circ(HR,56), hInner=circ(HRi,56), hB=circ(HRb,44), hBi=circ(HRb-3.4,44), hWheel=circ(27,36), hChip=rrect(-12,-10,10,10,2,4);
+const LR=pts=>pts[0][0]<=pts[pts.length-1][0]?pts:pts.slice().reverse();
+const hsvg=$('hl'), mkp=cls=>{const e=document.createElementNS('http://www.w3.org/2000/svg','path'); if(cls)e.setAttribute('class',cls); hsvg.appendChild(e); return e;};
+// el interruptor queda hacia la izquierda y un poco al fondo, para que la inclinación se lea de lado
+const KA=168, DX=-Math.cos(rd(KA)), DY=-Math.sin(rd(KA));      // D: del interruptor hacia el borde que entra primero
+mkp('sil').setAttribute('d',poly(hull(ringAt(HP,hOuter,0).concat(ringAt(HP,hOuter,HWH)))));
+mkp('nf sil').setAttribute('d',poly(ringAt(HP,hInner,HWH)));
+mkp('nf lo').setAttribute('d',hopen(ringAt(HP,run(hInner,q=>!hfront(q)),3)));
+{ const sl=[]; for(let a=KA-11;a<=KA+11;a+=5.5) sl.push(HP(HRi*Math.cos(rd(a)),HRi*Math.sin(rd(a)),17)); for(let a=KA+11;a>=KA-11;a-=5.5) sl.push(HP(HRi*Math.cos(rd(a)),HRi*Math.sin(rd(a)),6)); mkp('nf lo').setAttribute('d',poly(sl)); }
+const hGuide=mkp('nf dash'); hGuide.setAttribute('d',poly(ringAt(HP,hB,6+HTK)));
+const pBot=mkp('brd'), pTop=mkp('brd'), pCr=mkp('brd2'), pWheel=mkp('brd2'), pChip=mkp('brd2'), pKnob=mkp('hi'), pKnobTop=mkp('hi nf');
+{ const iF=LR(ringAt(HP,run(hInner,hfront),HWH)), oT=LR(ringAt(HP,run(hOuter,hfront),HWH)), oB=LR(ringAt(HP,run(hOuter,hfront),0));
+  mkp('fo').setAttribute('d',poly([...iF,oT[oT.length-1],...oB.slice().reverse(),oT[0]]));
+  mkp('nf lo').setAttribute('d',hopen(oT)); mkp('nf sil').setAttribute('d',hopen(iF)); mkp('nf sil').setAttribute('d',hopen([oT[0],...oB,oT[oT.length-1]])); }
+// destello en el punto de contacto: el tramo del borde donde pega el interruptor
+const hFlash=mkp('hi nf'); { const fl=[]; for(let a=KA-16;a<=KA+16;a+=4) fl.push(HP(HR*Math.cos(rd(a)),HR*Math.sin(rd(a)),HWH)); hFlash.setAttribute('d',hopen(fl)); }
+function bpt(u,v,h,th,zb,sh){ const sN=u*DX+v*DY, w=-u*DY+v*DX, dist=HRb-sN, c=Math.cos(th), sn=Math.sin(th);
+  const along=HRb+sh-dist*c+h*sn; return HP(-w*DY+along*DX, w*DX+along*DY, zb+dist*sn+h*c); }
+const sw2uv=(sN,w)=>[sN*DX-w*DY, sN*DY+w*DX];
+const T7={down:1.5, hit:2.2, tilt:2.6, in:3.5, swing:4.2, seat:5.1};
+function pose7(l){ let zb=64+Math.sin(l*2.2)*1.6, th=0, sh=0;
+  if(l>=T7.down) zb=lerp(64,HWH+1,eio(prog(l,T7.down,T7.hit)));
+  if(l>=T7.hit&&l<T7.tilt){ const k=l-T7.hit; zb=HWH+1+3.4*Math.exp(-k*9)*Math.abs(Math.sin(k*38)); }
+  if(l>=T7.tilt){ const a=eio(prog(l,T7.tilt,T7.in)); zb=lerp(HWH+1,40,a); th=lerp(0,25,a); sh=lerp(0,5,a); }
+  if(l>=T7.in) zb=lerp(40,6,eio(prog(l,T7.in,T7.swing)));
+  if(l>=T7.swing){ const a=eio(prog(l,T7.swing,T7.seat)); th=lerp(25,0,a); sh=lerp(5,0,a); }
+  return [rd(th),zb,sh]; }
+function draw7(l){ const [th,zb,sh]=pose7(l), R=(ring,h)=>ring.map(q=>bpt(q.u,q.v,h,th,zb,sh));
+  pBot.setAttribute('d',poly(R(hB,-HTK))); pTop.setAttribute('d',poly(R(hB,0))); pCr.setAttribute('d',poly(R(hBi,0)));
+  pWheel.setAttribute('d',poly(R(hWheel,0))); pChip.setAttribute('d',poly(hChip.map(q=>{const [u,v]=sw2uv(q.u+26,q.v+24);return bpt(u,v,0,th,zb,sh);})));
+  const box=(h)=>[[-HRb-10,-8],[-HRb+6,-8],[-HRb+6,8],[-HRb-10,8]].map(([sN,w])=>{const [u,v]=sw2uv(sN,w);return bpt(u,v,h,th,zb,sh);});
+  pKnob.setAttribute('d',poly(hull(box(0).concat(box(11))))); pKnobTop.setAttribute('d',poly(box(11)));
+  hGuide.style.opacity=prog(l,T7.tilt,T7.tilt+.4)*(1-prog(l,T7.seat-.3,T7.seat));
+  hFlash.style.opacity=(l>=T7.hit&&l<T7.hit+.2)?1:0; }
+
+async function render(t){
+  let idx=0; for(let k=0;k<9;k++) if(t>=S[k]) idx=k;
+  $$('.scene').forEach((sc,i)=>{ const on=i===idx||(i===idx-1&&t<S[idx]+CURT); sc.style.display=on?'block':'none'; sc.style.zIndex=i; if(on) curtain(sc,i,t); });
+  $('turb').setAttribute('seed',1+Math.floor(t*12)%9);
+
+  if(idx===0||idx===1){   // S1 · portada fija: el titular está desde el cuadro 0; solo se mueve la foto y "aparatos." enciende
+    $('band').querySelector('img').style.transform=`scale(${lerp(1.16,1.0,prog(t,0,S[1]))}) translateX(${lerp(-22,12,prog(t,0,S[1]))}px)`;
+    $('apar').style.color=t<.5?'#F5F4EF':'#FF7A1A';
+  }
+  if(idx===1||idx===2){   // S2 · entra por palabras; el golpe cae en "circuito."
+    const l=t-S[1]; words('s2',t,S[1]+.25,.2);
+    $$('#s2 .head')[0].style.transform=`scale(${lerp(1,1.05,prog(l,0,2.8))})`; $$('#s2 .head')[0].style.transformOrigin='0 50%';
+    const hit=prog(l,1.05,1.2); $('circ').style.letterSpacing=lerp(.02,-.04,eo(hit))+'em';
+  }
+  if(idx===2||idx===3){   // S3 · el pedido se escribe en 3.0 s y se queda 2.2 s completo
+    const l=t-S[2]; words('s3',t,S[2]+.3);
+    const ps=eo(prog(l,.3,.9)); $('sheet').style.transform=`translateY(${(1-ps)*90-l*3}px) rotate(${lerp(4,2,ps)-l*.1}deg)`; $('sheet').style.opacity=prog(l,.3,.42);
+    const n=Math.floor(clamp((l-1.0)/3.0)*PROMPT.length); $('ptxt').textContent=PROMPT.slice(0,n);
+    $('caret').style.opacity=(n<PROMPT.length||Math.floor(l*3)%2)?1:0;
+  }
+  if(idx===3||idx===4){
+    const l=t-S[3]; words('s4',t,S[3]+.3);
+    $('grid').style.backgroundPosition=`0 ${30-l*10}px`;
+    const open=eio(prog(l,.9,2.6)), spin=l*3.2;
+    $('stack').style.transform=`rotateX(${lerp(0,58,open)}deg) rotateZ(${lerp(0,-32,open)+spin}deg)`;
+    $$('#stack img').forEach((im,i)=>{ im.style.transform=`translateZ(${(i-1.5)*lerp(0,150,open)}px)`;
+      im.style.opacity=prog(l,.35+i*.08,.5+i*.08); im.style.filter=`brightness(${lerp(1,.72+i*.1,open)}) drop-shadow(0 20px 30px rgba(0,0,0,${.5*open}))`; });
+  }
+  if(idx===4||idx===5){   // S5 · un solo elemento sobre el muro; rótulo Antes → Después
+    const l=t-S[4]; words('s5',t,S[4]+.3);
+    $('wall5').style.transform=`scale(${1.1-l*.008})`;
+    const pt=eo(prog(l,.35,.95));
+    $('tile').style.transform=`translateY(${(1-pt)*80-l*2}px) rotate(${-2+l*.08}deg)`; $('tile').style.opacity=prog(l,.35,.45);
+    const sw=eio(prog(l,3.0,4.1)); $('micb').style.clipPath=`inset(0 ${(1-sw)*100}% 0 0)`;
+    $('scan5').style.left=(sw*740-7)+'px'; $('scan5').style.opacity=(sw>0&&sw<1)?1:0;
+    $('lab5').textContent=sw<.5?'Antes':'Después'; $('lab5').style.opacity=prog(l,.9,1.1); $('lab5').style.color=sw<.5?'#F5F4EF':'#FF7A1A';
+  }
+  if(idx===5||idx===6){
+    const l=t-S[5]; words('s6',t,S[5]+.3,.09);
+    const g1=eo(prog(l,1.0,1.6)), g2=eo(prog(l,2.2,3.0));
+    $('b1').style.transform=`scaleX(${g1})`; $('b2').style.transform=`scaleX(${g2})`;
+    rise($('p1'),t,S[5]+1.45); rise($('p2'),t,S[5]+2.85);
+    $$('#s6 .barrow').forEach((r,i)=>{ r.style.opacity=prog(l,.8+i*1.2,.95+i*1.2); });
+    rise($('foot6'),t,S[5]+3.2);
+    $('s6').style.backgroundPositionY='0'; $$('#s6 .head')[0].style.transform=`translateY(${-l*5}px)`; $('b2').style.filter=`brightness(${1+Math.sin(l*3)*.03})`;
+    $$('#s6 .pct').forEach(p=>{ p.style.marginRight=(l*4)+'px'; });
+  }
+  if(idx===6||idx===7){
+    const l=t-S[6]; words('s7',t,S[6]+.3,.09);
+    draw7(l); $('hl').style.opacity=prog(l,.3,.5); $('hl').style.transform=`translateY(${(1-eo(prog(l,.3,.9)))*50}px) scale(${1+l*.008})`;
+  }
+  if(idx===7||idx===8){
+    const l=t-S[7]; words('s8',t,S[7]+.3,.12);
+    $('wall8').style.transform=`scale(${1.14-l*.018})`; $$('#s8 .head')[0].style.transform=`translateY(${-l*7}px)`;
+  }
+  if(idx===8){
+    const l=t-S[8]; words('s9',t,S[8]+.3,.16); rise($('src9'),t,S[8]+1.5);
+    $$('#s9 .head')[0].style.transform=`translateY(${-l*12}px) scale(${1+l*.012})`; $$('#s9 .head')[0].style.transformOrigin='0 50%'; $('src9').style.marginTop=(-l*12)+'px';
+  }
+}
+window.render=render;
+</script>
+</body>
+</html>

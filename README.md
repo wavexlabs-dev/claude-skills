@@ -4,6 +4,7 @@ Skills de Claude Code para contenido y video, más el proceso de los Shorts.
 
 | Carpeta | Para qué |
 |---|---|
+| `es-real-o-es-hype/` | **Formato completo de la serie «¿Es real o es hype?»**: formato, guion, marca, motor de edición, plantillas, jingle, mezcla, QA y 4K. Funciona sola |
 | `video-short/` | Proceso de Shorts/Reels: corte, escenas en HyperFrames, subtítulos, música, QA |
 | `marca-pablo-video/` | Marca: Nocturno morado, Inter Tight, encuadres, voz. **`references/flujo-shorts.md` = reglas acordadas** |
 | `shorts-pablo/` | Proceso documentado, memoria de Claude, scripts (mezcla, copia ligera, 4K en Higgsfield) y el EP1 de ejemplo |
@@ -16,7 +17,7 @@ git clone https://github.com/wavexlabs-dev/claude-skills.git ~/claude-skills
 ```
 
 ```bash
-mkdir -p ~/.claude/skills && cp -R ~/claude-skills/video-short ~/claude-skills/marca-pablo-video ~/.claude/skills/
+mkdir -p ~/.claude/skills && cp -R ~/claude-skills/es-real-o-es-hype ~/claude-skills/video-short ~/claude-skills/marca-pablo-video ~/.claude/skills/
 ```
 
 Dependencias de `video-short` (Mac con Homebrew):
@@ -26,7 +27,7 @@ brew install ffmpeg node python@3.13
 ```
 
 ```bash
-bash ~/.claude/skills/video-short/scripts/setup.sh
+bash ~/.claude/skills/es-real-o-es-hype/motor/scripts/setup.sh
 ```
 
 ### La memoria

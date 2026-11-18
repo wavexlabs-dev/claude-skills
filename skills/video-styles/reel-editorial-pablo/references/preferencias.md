@@ -54,10 +54,7 @@ Este archivo junta todo lo que Pablo pidió o corrigió en las sesiones del 11 a
   - correr `scripts/verificar.py`;
   - abrir un subagente crítico a ciegas (`revision.md`). Tiene autorización permanente para ese fin, solo para ese fin (16 nov).
   - Entregar con NO PASA solo si se dice qué regla no pasa y por qué.
-- Leer también las reglas de las skills hermanas antes de diseñar:
-  - `references/reglas.md` de `estudio-video-codigo`;
-  - `references/reglas-aprendidas.md` de `video-largo-y-teaser`;
-  - los layouts de `html-reel`.
+- Leer también `reglas-heredadas.md` antes de diseñar: junta lo que aplica de las skills hermanas (`estudio-video-codigo`, `video-largo-y-teaser`, `html-reel`, `marca-pablo-video`).
 
   Él notó que "vamos para atrás" cuando se repitieron errores ya documentados (11 nov).
 - Cotizar y pedir permiso antes de cualquier generación con IA.

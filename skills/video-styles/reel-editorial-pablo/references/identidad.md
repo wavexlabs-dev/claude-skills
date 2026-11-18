@@ -20,6 +20,7 @@ Elegida por Pablo el 11 nov 2026 a partir de su moodboard. Sustituye al "Nocturn
 - **Space Grotesk 700** para titulares. Altas y bajas (no todo mayúsculas), punto final, `letter-spacing:-.04em`, interlínea 0.95–1.04.
 - **IBM Plex Mono 500/600** solo para contador, créditos y texto "de máquina" (un nombre de archivo, un prompt).
 - Carga: `https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500;600&display=swap`
+- Sin internet: `assets/fuentes/` trae los mismos pesos en woff2. `@font-face{font-family:"Space Grotesk";font-weight:700;src:url(fuentes/space-grotesk-latin-700-normal.woff2)}` y así con cada uno, copiando la carpeta al proyecto.
 - Tamaños en 1080×1920: titular 84–150 px según largo (2–3 líneas, nunca más de 4); apoyo 34–44 px; crédito y contador 22 px. **Nada por debajo de 22 px.**
 - El titular vive arriba (y≈300) en el espacio libre, alineado a x=90. En escenas solo tipográficas puede ir al centro (y≈620–700).
 - Énfasis: **una** palabra o cifra en naranja (`<em>`). Nunca cambiar de familia, peso o estilo dentro de un titular.

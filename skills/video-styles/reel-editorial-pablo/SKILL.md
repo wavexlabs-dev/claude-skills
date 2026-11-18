@@ -1,6 +1,6 @@
 ---
 name: reel-editorial-pablo
-description: Estilo de edición propio de Pablo Paredes para reels y TikToks (9:16), hecho en código — él hablando a cámara alternando con escenas de imagen en la identidad "Post-Digital Editorial B2" (Ink, azul, Paper, naranja; Space Grotesk; recortes en blanco y negro sobre fondos sólidos, muros oscuros y figuras isométricas), con layouts de cámara medidos (mitad y burbuja), un sistema de fondos, sonido donde solo suena lo que tiene cuerpo y revisión medida antes de entregar. This skill should be used whenever Pablo asks for a reel, TikTok, short or vertical clip for his personal brand in "el estilo editorial", "el estilo de los reels", "como la prueba C" or "como el explainer", when he drops a talking-head clip and wants scenes cut into it, when he wants an animated explainer of an article in this look, or when he asks to add or fix music and sound effects on one of these pieces.
+description: Estilo de edición propio de Pablo Paredes para reels y TikToks (9:16), hecho en código — él hablando a cámara alternando con escenas de imagen en la identidad "Post-Digital Editorial B2" (Ink, azul, Paper, naranja; Space Grotesk; recortes en blanco y negro sobre fondos sólidos, muros oscuros y figuras isométricas), con layouts de cámara medidos (mitad y burbuja), un sistema de fondos, sonido donde solo suena lo que tiene cuerpo y revisión medida antes de entregar. This skill should be used whenever Pablo asks for a reel, TikTok, short or vertical clip for his personal brand in "el estilo editorial", "el estilo de los reels", "como la prueba C" or "como el explainer", when he drops a talking-head clip and wants scenes cut into it, when he wants an animated explainer of an article in this look, or when he asks to add or fix music and sound effects on one of these pieces. It is the editorial style (B2 identity, Space Grotesk); for the "Nocturno morado" Shorts use short-explicativo, and for the «¿Es real o es hype?» series use es-real-o-es-hype.
 ---
 
 # Reel editorial de Pablo (v0.4 · 17 nov 2026)
@@ -15,7 +15,7 @@ Estado: primera versión. Al final hay una lista de lo que está probado y lo qu
 ## Antes de empezar
 
 0. **Leer `references/preferencias.md` completo.** Junta todas las reglas que Pablo dio (cortes, 1.2x, tomas mirando a cámara, video de referencia, subtítulos, composición, sonido, proceso). No depende de la memoria de ningún chat.
-1. Cargar también `marca-pablo-video` (Cody, voz, regla de costos). **En paleta, tipografía y piezas gráficas manda esta skill**, no el "Nocturno morado" de aquella.
+1. **Esta skill es autocontenida**: no hace falta cargar `marca-pablo-video` ni otras skills de video. Lo que aplicaba de ellas (voz, regla de costos, layouts, crítico) está en `references/reglas-heredadas.md`. Este estilo usa la identidad B2, no el "Nocturno morado". Primera vez en una computadora: `bash scripts/setup.sh`.
 2. Leer `references/identidad.md`, `references/fondos.md` y `references/recursos.md` completos. Son cortos y contienen los errores que Pablo ya rechazó.
 3. Abrir los dos `resultado.mp4` de ejemplo (o sus `index.html`) antes de diseñar nada.
 4. **Cualquier generación con IA (imágenes, música, efectos) se cotiza y se pide permiso antes.** Nunca generar sin un sí.
@@ -100,6 +100,7 @@ Estado: primera versión. Al final hay una lista de lo que está probado y lo qu
 | Archivo | Para qué |
 |---|---|
 | `references/preferencias.md` | **Todas las reglas de Pablo en un solo lugar (leer primero)** |
+| `references/reglas-heredadas.md` | Lo que aplica de las skills hermanas (marca, layouts, composición, audio, crítico) |
 | `references/identidad.md` | Paleta, tipografía, marco, tamaños, lo que Pablo rechazó |
 | `references/fondos.md` | Catálogo F1–F11, fondos nuevos por probar F12–F20 y sus reglas |
 | `references/recursos.md` | Caja de herramientas para ejemplificar (pixel art, Hairline, motion graphics, IA), fluidez e historial por reel |
@@ -116,6 +117,10 @@ Estado: primera versión. Al final hay una lista de lo que está probado y lo qu
 | `assets/ejemplo-3d/` | Objeto real modelado en Blender desde fotos y usado en el reel; cortes, 1.2x, 4K y luz (leer su LEEME) |
 | `assets/modulos/` · `scripts/range.mjs` | Pixel art y subtítulos reutilizables; render por rangos |
 | `assets/texturas/` · `assets/sonidos/` | Muros y biblioteca de sonidos por material |
+| `assets/fuentes/` | Space Grotesk 500/700 e IBM Plex Mono 500/600 (woff2, OFL) para trabajar sin internet |
+| `assets/audio/` | Música aprobada (`musica_jeep94.mp3`, la del reel final "Jeep 94") |
+| `assets/ejemplo-jeep94/` | El reel final de referencia: corte multitoma, subtítulos, video de referencia, insertos, guion, bitácora y hoja de cuadros |
+| `scripts/setup.sh` | Revisa lo que hace falta la primera vez en una computadora |
 
 ## Qué está probado y qué no (v0.4)
 

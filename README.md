@@ -4,11 +4,11 @@ Skills de Claude Code para contenido y video, más el proceso de los Shorts.
 
 | Carpeta | Para qué |
 |---|---|
-| `skills/video-styles/` | **Una skill por formato de video** (autocontenidas): `es-real-o-es-hype` (la serie) y `short-explicativo` (Short general con fuentes). Ver su README |
+| `skills/video-styles/` | **Una skill por formato de video** (autocontenidas): `es-real-o-es-hype` (la serie), `short-explicativo` (Short general con fuentes) y `reel-editorial-pablo` (reel editorial B2 hecho en código). Ver su README |
 | `video-short/` | Proceso de Shorts/Reels: corte, escenas en HyperFrames, subtítulos, música, QA |
 | `marca-pablo-video/` | Marca: Nocturno morado, Inter Tight, encuadres, voz. **`references/flujo-shorts.md` = reglas acordadas** |
 | `shorts-pablo/` | Proceso documentado, memoria de Claude, scripts (mezcla, copia ligera, 4K en Higgsfield) y el EP1 de ejemplo |
-| `reel-editorial-pablo/`, `html-reel/`, `estudio-video-codigo/`, `content-creator/`, … | Otras skills de contenido |
+| `html-reel/`, `estudio-video-codigo/`, `content-creator/`, … | Otras skills de contenido |
 
 ## Instalar en otra computadora
 

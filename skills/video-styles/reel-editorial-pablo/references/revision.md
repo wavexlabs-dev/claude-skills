@@ -79,7 +79,7 @@ No suavices. No felicites.
 
 Parar al llegar a 8, o tras dos rondas con la misma calificación. Referencia: el explainer v2 sacó 6.5 con 13 hallazgos; la v3 y la v4 no han pasado segunda ronda.
 
-Más detalle de este método en la skill `estudio-video-codigo` (`references/critico.md`).
+Más detalle de este método en `reglas-heredadas.md` (sección Crítico nuevo).
 
 ## Comprobaciones añadidas (14 nov 2026)
 Antes de entregar, además de lo anterior:

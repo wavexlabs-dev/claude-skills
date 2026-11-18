@@ -9,7 +9,7 @@
   edit.md  style.json  src.mov  broll/  voz/  work/  renders/  borradores/
 ```
 Copia `assets/plantillas/style.json`, `pad_estrellas.jpg`, `titulo.html`, `veredicto.html` a `broll/` (style a la
-raíz) y las fuentes de `assets/fuentes/` a `fonts/`. Copia `assets/audio/musica_base.mp3` si no hay música nueva.
+raíz) y las fuentes de `assets/fuentes/` a `fonts/`. Copia `assets/audio/musica_base.mp3` y `assets/audio/jingle.wav` (son los de la serie; no se regeneran).
 
 ## 2. Proxy y velocidad
 Clips Sony verticales (3840x2160, rotación −90; ffmpeg ya rota: nunca recortes como si fuera horizontal):

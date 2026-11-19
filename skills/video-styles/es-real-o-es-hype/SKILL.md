@@ -22,7 +22,8 @@ hype. Todo lo necesario vive en esta skill: no hace falta cargar `video-short` n
    [references/guion.md](references/guion.md): las tomas que Pablo tiene que grabar y la grabación de pantalla.
 2. **Preparar** — proxy 1080 de los clips Sony, velocidad 1.2x si la quiere, fuente en orden de historia.
    Todo en [references/produccion.md](references/produccion.md).
-3. **Apertura** — `scripts/apertura.sh` con su reacción en silencio y el reel.
+3. **Apertura** — `scripts/apertura.sh` con su reacción en silencio y el reel. El acomodo es **fijo**; no
+   propongas otro. Ver la sección «Apertura fija» abajo.
 4. **edit.md** — cortes, escenas y plantillas de `assets/plantillas/` (título y veredicto). Ejemplo completo:
    `assets/ejemplo-ep1/edit.md`.
 5. **Borrador** — `motor/scripts/render.py --draft`, luego `scripts/ajustar_subtitulos.py` y
@@ -46,3 +47,15 @@ Motor de edición (comandos, sintaxis de `edit.md`, gráficos): [motor/reference
 - Pruebas con su propia grabación de pantalla, nunca con material inventado; si algo es IA, se rotula.
 - Fondo `#0b0a12`, texto `#f4f2ff`, morado `#8a6bff` solo en la palabra clave. Inter Tight 600/800.
 - Entrega −13 LUFS, pico ≤ −1.5 dBTP, 1.2x si Pablo lo confirma.
+
+## Apertura fija (no cambiarla)
+![Apertura del EP1](assets/ejemplo-ep1/apertura_ep1.jpg)
+
+Así queda el primer cuadro de cada episodio (EP1, `assets/ejemplo-ep1/apertura_ep1.jpg`):
+- Pablo a **pantalla completa** viendo el celular, con zoom 1.3 a su toma; su cara completa, arriba y al centro.
+- El reel viral como **tarjeta redondeada abajo a la izquierda** (470x836, esquinas de 30 px, en x=44, y=990):
+  no tapa su cara y deja ver el celular en su mano a la derecha.
+- Sin texto, sin título, sin jingle; solo el audio original del reel. Termina en su cara de duda, justo antes
+  de que hable.
+- Hazla siempre con `scripts/apertura.sh`; no la armes en `edit.md` con split, burbuja ni otro layout.
+  Revisa `apertura_inicio.jpg` contra la imagen de ejemplo antes de seguir.

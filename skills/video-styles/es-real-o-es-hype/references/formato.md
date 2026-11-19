@@ -4,7 +4,7 @@ Duración objetivo: 60–90 s a 1.2x. EP1 duró 90.8 s. Plantilla completa: `ass
 
 | # | Bloque | Layout | Qué se ve | Qué se oye | EP1 |
 |---|---|---|---|---|---|
-| 1 | **Hook** | b-roll (`apertura.mp4`) | Pablo viendo el reel en el celular, zoom 1.3 a pantalla completa; el reel como tarjeta redondeada abajo a la izquierda. Termina en su cara de duda. | Solo el audio original del reel (−1 dB, fade en el último medio segundo) | 0–6.8 s |
+| 1 | **Hook** | b-roll (`apertura.mp4`) | Pablo viendo el reel en el celular, zoom 1.3 a pantalla completa; el reel como tarjeta redondeada abajo a la izquierda. Termina en su cara de duda. Acomodo fijo: ver `assets/ejemplo-ep1/apertura_ep1.jpg`. | Solo el audio original del reel (−1 dB, fade en el último medio segundo) | 0–6.8 s |
 | 2 | **Planteamiento** | a-roll | Pablo a cámara | «Lo que menos me gusta de la IA es el hype…» | 6.8–13.6 |
 | 3 | **Prueba de que es viral/falso** | split | El reel arriba (zoom a la parte clave), Pablo abajo | «muchos videos… son falsos» | 13.6–17.2 |
 | 4 | **Título de la serie** | b-roll + `graphic: titulo.html` | Pantalla completa morada: píldora «NUEVA SERIE · EP N», «¿Es real / o es **hype**?», «Lo que ves de IA en internet, a prueba». Sin Pablo a cámara. | Su voz: «…esta nueva serie llamada ¿Es real o es hype?» y **después** el jingle (1.9 s) | 17.2–22.9 |
